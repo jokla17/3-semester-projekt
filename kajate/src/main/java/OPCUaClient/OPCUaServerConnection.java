@@ -180,22 +180,23 @@ public class OPCUaServerConnection {
     
     private static void onSubscriptionValue(UaMonitoredItem item, DataValue value) {
         System.out.println("Subscription value received: item=" + item.getReadValueId().getNodeId() + ", value=" + value.getValue());
+        WebRequestHandler.getInstance().putRequest(item.getReadValueId().getNodeId().getIdentifier(), value.getValue().getValue());
     }
 
-    public void startProduction(/* maybe give input parameters at a later point */){
-        writeToEndpoint(commandTags.get("CntrlCmd"),          cntrlCmds.get("Reset"));    // PackTag command for "Reset Machine"
-        writeToEndpoint(commandTags.get("CmdChangeRequest"),  true);                      // Execute command
-        writeToEndpoint(commandTags.get("BatchId"),           (float)1);                         // batch id
-        writeToEndpoint(commandTags.get("Type"),              (float)beerTypes.get("Pilsner"));  // beer type
-        writeToEndpoint(commandTags.get("Amount"),            (float)20);                 // amount to produce
-        writeToEndpoint(commandTags.get("MachSpeed"),         (float)120);                // Machine speed
-        writeToEndpoint(commandTags.get("CntrlCmd"),          cntrlCmds.get("Start"));    // PackTag command for "Start Production"
-        writeToEndpoint(commandTags.get("CmdChangeRequest"),  true);                      // Execute command
+    public void startProduction(float batchId, String beerType, float amount, float speed){
+        writeToEndpoint(commandTags.get("CntrlCmd"),          cntrlCmds.get("Reset"));          // PackTag command for "Reset Machine"
+        writeToEndpoint(commandTags.get("CmdChangeRequest"),  true);                            // Execute command
+        writeToEndpoint(commandTags.get("BatchId"),           batchId);                         // batch id
+        writeToEndpoint(commandTags.get("Type"),              (float)beerTypes.get(beerType));  // beer type
+        writeToEndpoint(commandTags.get("Amount"),            amount);                          // amount to produce
+        writeToEndpoint(commandTags.get("MachSpeed"),         speed);                           // Machine speed
+        writeToEndpoint(commandTags.get("CntrlCmd"),          cntrlCmds.get("Start"));          // PackTag command for "Start Production"
+        writeToEndpoint(commandTags.get("CmdChangeRequest"),  true);                            // Execute command
     }
     
     public static void main (String[]args){
         OPCUaServerConnection client = getInstance();
-        client.startProduction();
+        client.startProduction(1.0f, "Wheat", 40.00f, 100.00f);
         
         System.out.println(client.readEndPoint(client.commandTags.get("MachSpeed")));
 
