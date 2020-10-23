@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.concurrent.Flow.Subscription;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiConsumer;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import java.lang.Math;
 
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
@@ -41,6 +45,7 @@ public class OPCUaServerConnection {
     // Constructor
     public OPCUaServerConnection () {}
     
+    /* ::Deprecated::
     HashMap<String, Object> parameters = new HashMap<String, Object>();
     {{
         parameters.put("reset", 1);
@@ -51,6 +56,7 @@ public class OPCUaServerConnection {
         parameters.put("machspeed", (float) 120);
         parameters.put("start", 2);
     }}
+    */
     
     //Misc tags *read-only
     HashMap<String, String> adminTags = new HashMap<String, String>(); 
@@ -180,27 +186,37 @@ public class OPCUaServerConnection {
     
     private static void onSubscriptionValue(UaMonitoredItem item, DataValue value) {
         System.out.println("Subscription value received: item=" + item.getReadValueId().getNodeId() + ", value=" + value.getValue());
-        WebRequestHandler.getInstance().putRequest(item.getReadValueId().getNodeId().getIdentifier(), value.getValue().getValue());
+        WebRequestHandler.getInstance().putRequest("produced", value.getValue().getValue());
     }
 
-    public void startProduction(float batchId, String beerType, float amount, float speed){
-        writeToEndpoint(commandTags.get("CntrlCmd"),          cntrlCmds.get("Reset"));          // PackTag command for "Reset Machine"
-        writeToEndpoint(commandTags.get("CmdChangeRequest"),  true);                            // Execute command
-        writeToEndpoint(commandTags.get("BatchId"),           batchId);                         // batch id
-        writeToEndpoint(commandTags.get("Type"),              (float)beerTypes.get(beerType));  // beer type
-        writeToEndpoint(commandTags.get("Amount"),            amount);                          // amount to produce
-        writeToEndpoint(commandTags.get("MachSpeed"),         speed);                           // Machine speed
-        writeToEndpoint(commandTags.get("CntrlCmd"),          cntrlCmds.get("Start"));          // PackTag command for "Start Production"
-        writeToEndpoint(commandTags.get("CmdChangeRequest"),  true);                            // Execute command
+    public void startProduction(){
+        String response = WebRequestHandler.getInstance().getRequest();
+
+        Gson gson = new Gson();
+        JsonObject jobj = gson.fromJson(response, JsonObject.class);
+
+        float batchID = jobj.get("tfBatchID").getAsFloat();
+        float productType = jobj.get("tfProductType").getAsFloat();
+        float productAmount = jobj.get("tfProductAmount").getAsFloat(); 
+        float machineSpeed = jobj.get("tfMachineSpeed").getAsFloat();
+
+        writeToEndpoint(commandTags.get("CntrlCmd"),          cntrlCmds.get("Reset"));  // PackTag command for "Reset Machine"
+        writeToEndpoint(commandTags.get("CmdChangeRequest"),  true);                    // Execute command
+        writeToEndpoint(commandTags.get("BatchId"),           batchID);                 // batch id
+        writeToEndpoint(commandTags.get("Type"),              (float)productType);      // beer type
+        writeToEndpoint(commandTags.get("Amount"),            productAmount);           // amount to produce
+        writeToEndpoint(commandTags.get("MachSpeed"),         machineSpeed);            // Machine speed
+        writeToEndpoint(commandTags.get("CntrlCmd"),          cntrlCmds.get("Start"));  // PackTag command for "Start Production"
+        writeToEndpoint(commandTags.get("CmdChangeRequest"),  true);                    // Execute command
     }
     
     public static void main (String[]args){
         OPCUaServerConnection client = getInstance();
-        client.startProduction(1.0f, "Wheat", 40.00f, 100.00f);
-        
+        client.startProduction();
+
         System.out.println(client.readEndPoint(client.commandTags.get("MachSpeed")));
 
-        client.subscribeToEndpoint(client.adminTags.get("ProdProcessedCount")); //subscribes to the data on ProdProcessedCount
+        client.subscribeToEndpoint(client.adminTags.get("ProdProcessedCount")); //subscribes to the data on ProdProcessedCount    
     }
 }
  

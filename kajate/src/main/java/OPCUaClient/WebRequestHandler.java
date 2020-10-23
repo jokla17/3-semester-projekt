@@ -25,7 +25,7 @@ public class WebRequestHandler {
     public String getRequest() {
         String response = null;
         try {
-            HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:3000"))
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:3000/form_data"))
             .GET()
             .build();
             HttpResponse<String> res = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -65,9 +65,9 @@ public class WebRequestHandler {
         // String declared and initialized with a json object (which is a string)
         String requestBody = gson.toJson(map);
         try {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://localhost:3000"))
-                    .header("Content-Type", "application/json")
+            HttpRequest request = HttpRequest.newBuilder() 
+                    .uri(URI.create("http://localhost:3000/opcua_data")) 
+                    .header("Content-Type", "application/json") 
                     .PUT(BodyPublishers.ofString(requestBody))
                     .build();
     
@@ -78,9 +78,7 @@ public class WebRequestHandler {
         }
     }
 
-    
-    public static void main (String[]args){
+    public static void main (String[]args) {
         System.out.println(getInstance().getRequest());
-        getInstance().postRequest();
     }
 }
