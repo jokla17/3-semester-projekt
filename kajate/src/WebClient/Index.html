@@ -1,39 +1,141 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>
-            Kajate MES
-        </title>
+        <title>Kajate MES</title>
+        <link rel="stylesheet" href="stylesheets/variables.css">
+        <link rel="stylesheet" href="stylesheets/style.css">
     </head>
-    <body style="background-color: rgb(56, 184, 145);">
-        <h1 style="margin-left: 45%"> Refslev Bryggeri A/S </h1>
-        <p style="margin-left: 45%">Refslev Bryggeri er top kewl</p>
-        <h3> Storslåede bajere and hello world </h3>
-        <form action="http://localhost:3000/form_data" method="post" target="_blank">
-            <label for: "batchID">Batch ID:</label>
-            <input name="tfBatchID" type="text" id="tfBatchID"><br>
-            <label for: "productType">Product Type:</label>
-            <input name="tfProductType" type="text" id="tfProductType"><br>
-            <label for: "productAmount">Amount:</label>
-            <input name="tfProductAmount" type="text" id="tfProductAmount"><br>
-            <label for: "machineSpeed">Machine Speed:</label>
-            <input name="tfMachineSpeed" type="text" id="tfMachineSpeed"><br>
-            <input type="submit" id="btnStart" value="Start">    
-            <!-- <input type="submit" value="Stop">
-            <input type="submit" value="Reset">
-            <input type="submit" value="Abort">
-            <input type="submit" value="Clear"> -->
-        </form>
-        <ul> 
-            <li>Batch id: <span id="spanBatchId"> 0 </span></li> 
-            <li>Product type: <span id="spanProductId"> 0 </span> </li> 
-            <li>Amount to produce: <span id="spanAmountId"> 0 </span></li> 
-            <li>Machine speed: <span id="spanSpeedId"> 0 </span></li> 
-            <li>Produced: <span id="spanProducedId"> 0 </span></li>
-        </ul>
+    <body>
+        <header>
+            <div class="mainWrapper">
+                <div id="dateTime">
+                    <p>12:45 30-10-2020</p>
+                </div>
+                <div id="searchField">
+                    <input type="text" placeholder="Search batch products ...">
+                    <button type="submit">Search</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="mainWrapper">
+            <aside class="flex-size-1 flexDirectionColumn">
+                <div class="flexCenter" id="logoContainer">
+                    <img src="images/logo-web-png.png">
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Production Dashboard</a></li>
+                        <li><a href="#">Batch report</a></li>
+                        <li><a href="#">Statistical Analysis</a></li>
+                        <li><a href="#">Database Contents</a></li>
+                        <li><a href="#">Check Servers</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <div class="flex-size-2 flexDirectionColumn">
+                <div class="flexDirectionRow flexSpaceBetween">
+                    <div id="secCreateBatch">
+                        <form id="fCreateBatch" action="http://localhost:3000/form_data" method="post" target="_blank">
+                            <h2>Create Batch</h2>
+                            <label>Batch ID:</label> <br>
+                            <input name="tfBatchId" type="text" id="tfBatchId" disabled>
+                            <input type="radio" id="autoBatchId" name="auto" value="auto">
+                            <label for="auto">Auto</label>
+                            <br>
+                            <br>
+                            <label>Product Type:</label> <br>
+                            <select id="productType" name="productType">
+                                <option value="Pilsner">Pilsner</option>
+                                <option value="Wheat">Wheat</option>
+                                <option value="IPA">IPA</option>
+                                <option value="Stout">Stout</option>
+                                <option value="Ale">Ale</option>
+                                <option value="Alcohol-free">Alcohol-free</option>
+                            </select>                       
+                            <br>
+                            <br>
+                            <label>Amount:</label><br>
+                            <input name="tfProductAmount" type="text" id="tfProductAmount">
+                            <br>
+                            <br>                                           
+                            <label>Machine Speed:</label> <br>
+                            <input name="tfMachineSpeed" type="text" id="tfMachineSpeed" disabled>            
+                            <input type="radio" id="autoMachineSpeed" name="auto" value="auto">
+                            <label for="auto">Auto</label>
+                                                        
+                            <br>
+                            <br>
+                            <input type="submit" id="btnStart" form="fCreateBatch" value="Start">
+                        </form>
+                    </div>
+
+                    <div id="secBatchReport">
+                        <div class="flexCenter">
+                            <h2>Current Batch Report</h2>
+                        </div>
+                        <div id="innerBatchReport">
+                            <li>Batch id: <span id="spanBatchId"> 0 </span></li>
+                            <li>Beer type: <span id="spanProductId"> 0 </span> </li>
+                            <li>Amount to produce: <span id="spanAmountId">0</li> </span></li>
+                            <li>Defect products: <span id="spanDefectID">0</li> </span></li>
+                            <li>Acceptable products: <span id="spanAcceptableId">0</li> </span></li>
+                            <li>Total production time: <span id="spanProductionTimeId">0</li> </span></li>
+                            <li>Estimated temperature: <span id="spanEstimatedTemperatureId">0</li> </span></li>
+                            <li>Estimated Humidity: <span id="spanEstimatedHumiditytId">0</li> </span></li>
+                            <li>Overall Equipment Effectiveness: <span id="spanEquipmentId">0</li> </span></li>
+                            <li>Machine speed: <span id="spanSpeedId"> 0 </span></li>
+                            <li>Produced: <span id="spanProducedId"> 0 </span></li>
+                        </div>
+                        <div class="flexCenter"><input type="submit" id="btnSave" value="Save As PDF"></div>
+                    </div>
+                </div>
+
+                <div id="secRealtimeVisualization" class="flexDirectionColumn flexCenter">
+                    <div>
+                        <ul class="flexCenter flexDirectionRow flexSpaceBetween">
+                            <li>Temperature: <span id="">0.0</span></li>
+                            <li>Batch id: <span id="">0.0</span></li>
+                            <li>Produced: <span id="">0.0</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="flexCenter flexDirectionRow flexSpaceBetween">
+                            <li>Humidity: <span id="">0.0</span></li>
+                            <li>Amount to produce: <span id="">0.0</span></li>
+                            <li>Acceptable products: <span id="">0.0</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="flexCenter flexDirectionRow flexSpaceBetween">
+                            <li>Vibration: <span>0.0</span></li>
+                            <li>Product per minute: <span>0.0</span></li>
+                            <li>Defect products: <span>0.0</span></li>
+                        </ul>
+                    </div>
+                    <div class="flexCenter">
+                        <button>Stop</button>
+                        <button>Reset</button>
+                        <button>Clear</button>
+                        <button>Abort</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="mainWrapper">
+
+                <p>
+                    User interface developed by group 5: <br> Jonas Svane, Arem Dogan, Emma Johanne Bovtrup, Andreas Schmidt
+                    Tumpebjerg <br>
+                    Karthikan Vimalarasan, Wahid Tobias Winberg Razzaghi
+                </p>
+            </div>
+        </footer>
 
         <script>
-           function poll(){
+            function poll(){
                 fetch("http://localhost:3000/opcua_data")
                 .then(response => response.json())
                 .then(json => { 
@@ -45,14 +147,14 @@
                 })
                 .then(() => setTimeout(poll(), 500))
                 .catch(err => console.log(err));
-           }
-
-           document.getElementById("btnStart").addEventListener("click", () => {
+            }
+        
+            document.getElementById("btnStart").addEventListener("click", () => {
                 setTimeout(() => {
                     poll();
                 }, 5000);
-           });
+            });
         </script>
-
     </body>
 </html>
+

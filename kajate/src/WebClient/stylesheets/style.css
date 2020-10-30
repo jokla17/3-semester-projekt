@@ -1,0 +1,180 @@
+/** Default **/
+*  {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    outline: 0;
+    list-style-type: none;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;  
+}
+
+/** General properties **/
+.flex-size-1 {
+    flex: 1;
+}
+
+.flex-size-2 {
+    flex: 2;
+}
+
+.flexDirectionColumn{
+    display: flex;
+    flex-direction: column;
+}
+
+.flexDirectionRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexCenter {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.flexSpaceBetween {
+    display: flex;
+    justify-content: space-between;
+}
+
+/*******************/
+/** HTML elements **/
+/*******************/
+html, body {
+    background-color: var(--main-bg-color);
+    height: 100%;
+}
+
+header {
+    background-color: var(--header-bg-color);
+    padding: 15px 0 15px 0;
+}
+
+footer {
+    height: 100%;
+    background-color: var(--footer-bg-color);
+    color: var(--footerText-color);
+    text-align: center;
+}
+
+footer p {
+    margin-top: 30px;
+    line-height: 25px;
+}
+
+/** Side bar **/
+aside {
+    background-color: var(--sidebar-bg-color);
+    margin-right: 30px;
+}
+
+#logoContainer > img {
+    width: 100%;
+    max-width: 250px;
+    padding: 40px 0 40px 0;
+}
+
+aside > nav > ul > li {
+    font-weight: bold;
+    padding: 15px 30px 15px 30px;
+}
+
+aside > nav > ul > li:hover {
+    background-color: var(--sidebar-hover-color);
+    cursor: pointer;
+}
+
+aside > nav > ul > li > a {
+    font-size: 16px;
+    text-transform: uppercase;
+    color: var(--text-default-color);
+}
+
+/**********************/
+/** Classes and ids ***/
+/**********************/
+.mainWrapper {
+    display: flex;
+    justify-content: center;
+    max-width: 960px;
+    width: 100%;
+    align-content: center;
+    margin: 0 auto;
+}
+
+#secCreateBatch {
+    background-color: var(--contentBoxes-bg-color);
+}
+
+#tfBatchId {
+    width: 100px;
+}
+
+#tfMachineSpeed {
+    width: 100px;
+}
+
+#secCreateBatch {
+    background-color: var(--contentBoxes-bg-color);
+    border-radius: 8px;
+    margin-top: 25px;
+    padding: 20px;
+}
+
+#secBatchReport {
+    width: 350px;
+    background-color: var(--contentBoxes-bg-color);
+    border-radius: 8px;
+    margin-top: 25px;
+    padding: 20px;
+}
+
+#innerBatchReport{
+    background-color: var( --main-bg-color) ;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+#btnSave{
+    background-color: var(--successButton-bg-color);
+    color: var(--text-bg-color);
+    border-radius: 4px;
+    padding: 2px;
+    text-align: center;
+    display: flex;
+    font-size: 12px;
+    margin: 4px 2px;
+}
+
+#btnStart {
+    background-color: var(--successButton-bg-color);
+    color: var(--text-bg-color);
+    border-radius: 4px;
+    padding: 2px;
+    text-align: center;
+    display: flex;
+    font-size: 12px;
+    margin: 4px 2px;
+}
+
+#searchField {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+/** Realtime Visualtion **/
+#secRealtimeVisualization {
+    background-color: var(--contentBoxes-bg-color);
+    margin: 25px 0 25px 0;
+    padding: 20px;
+    border-radius: 8px;
+    height: 100%;
+    min-height: 300px;
+}
+
+#secRealtimeVisualization ul{
+    margin: 30px 0 30px 0;
+}
