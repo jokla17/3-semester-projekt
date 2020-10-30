@@ -54,11 +54,9 @@ public class WebRequestHandler {
         }
     }
 
-    public void putRequest(Object identifier, Object data) {
+    public void putRequest(HashMap<String, Object> dataset) {
         // Map key value pairs
-        Map<String, String> map = new HashMap<>();  
-        map.put(identifier.toString(), data.toString());
-        
+        Map<String, Object> map = dataset;  
         // Used to help converting to JSON and from string
         Gson gson = new Gson(); 
 
