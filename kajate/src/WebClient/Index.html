@@ -19,7 +19,7 @@
         <div class="wrapper">
             <!--SIDEBAR-->
             <aside class="flex-size-1 flexDirectionColumn">
-                <div class="flexCenter" id="logoContainer">
+                <div class="flexCenterMultipleRows" id="logoContainer">
                     <img src="./images/logo-web.png">
                 </div>
                 <nav>
@@ -34,9 +34,9 @@
             </aside>
             <!--DASHBOARD BOXES-->
             <div class="flex-size-2 flexDirectionColumn">
-                <div class="flexDirectionRow flexSpaceBetween">
-                    <form class="flex-size-1 contentBox" id="formCreateBatch" action="http://localhost:3000/form_data" method="post" target="_blank">
-                        <h2 class="flexCenter">Create Batch</h2>
+                <div class="flexDirectionRow flexSpaceBetween flexWrap">
+                    <form class="flex-size-1 containerBox" id="formCreateBatch" action="http://localhost:3000/form_data" method="post" target="_blank">
+                        <h2 class="flexCenterSingleRow">Create Batch</h2>
                         <label>Batch ID:</label><br>
                         <input name="tfBatchId" type="text" id="tfBatchId" disabled>
                         <input type="radio" id="autoBatchId" name="auto" value="auto">
@@ -56,10 +56,10 @@
                         <input name="tfMachineSpeed" type="text" id="tfMachineSpeed" disabled>            
                         <input type="radio" id="autoMachineSpeed" name="auto" value="auto">
                         <label for="auto">Auto</label>
-                        <span class="flexCenter"><input class="buttonDefault" type="submit" id="btnStart" value="Start"></span>
+                        <span class="flexCenterSingleRow"><input class="buttonDefault" type="submit" id="btnStart" value="Start"></span>
                     </form>
-                    <div class="flex-size-2 contentBox">
-                        <h2 class="flexCenter">Current Batch Report</h2>
+                    <div class="flex-size-2 containerBox" id="report">
+                        <h2 class="flexCenterSingleRow">Current Batch Report</h2>
                         <div class="innerContentBox">
                             <li>Batch id: <span id="spanBatchId"> 0 </span></li>
                             <li>Beer type: <span id="spanProductId"> 0 </span> </li>
@@ -73,32 +73,78 @@
                             <li>Machine speed: <span id="spanSpeedId"> 0 </span></li>
                             <li>Produced: <span id="spanProducedId"> 0 </span></li>
                         </div>
-                        <span class="flexCenter"><input class="buttonDefault" type="submit" id="btnSave" value="Save As PDF"></span>
+                        <span class="flexCenterSingleRow"><input class="buttonDefault" type="submit" id="btnSave" value="Save As PDF"></span>
                     </div>
                 </div>
-                <div class="contentBox flexDirectionColumn flexCenter" id="realtimeVisualization">
-                    <div>
-                        <ul class="flexCenter flexDirectionRow flexSpaceBetween">
-                            <li>Temperature: <span id="">0.0</span></li>
-                            <li>Batch id: <span id="">0.0</span></li>
-                            <li>Produced: <span id="">0.0</span></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <ul class="flexCenter flexDirectionRow flexSpaceBetween">
-                            <li>Humidity: <span id="">0.0</span></li>
-                            <li>Amount to produce: <span id="">0.0</span></li>
-                            <li>Acceptable products: <span id="">0.0</span></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <ul class="flexCenter flexDirectionRow flexSpaceBetween">
-                            <li>Vibration: <span>0.0</span></li>
-                            <li>Product per minute: <span>0.0</span></li>
-                            <li>Defect products: <span>0.0</span></li>
-                        </ul>
-                    </div>
-                    <div class="flexCenter">
+                <!-- REALTIME VISUALIZATION BOXES -->
+                <div class="containerBox" id="realtimeVisualization">
+                    <h2 class="flexCenterSingleRow">Real-time Visualization</h2>
+                    <div class="flexCenterMultipleRows flexSpaceAround flexWrap">
+                        <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
+                            <div class="flexDirectionColumn flexCenterSingleRow">
+                                <img src="#">
+                                <h3>Temperature</h3>
+                            </div>
+                            <p>0.0</p>
+                        </div>
+                        <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
+                            <div class="flexDirectionColumn flexCenterSingleRow">
+                                <img src="#">
+                                <h3>Batch ID</h3>
+                            </div>
+                            <p>0.0</p>
+                        </div>
+                        <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
+                            <div class="flexDirectionColumn flexCenterSingleRow">
+                                <img src="#">
+                                <h3>Produced</h3>
+                            </div>
+                            <p>0.0</p>
+                        </div>
+                        <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
+                            <div class="flexDirectionColumn flexCenterSingleRow">
+                                <img src="#">
+                                <h3>Humidity</h3><br>
+                            </div>
+                            <p>0.0</p>
+                        </div>
+                        <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
+                            <div class="flexDirectionColumn flexCenterSingleRow">
+                                <img src="#">
+                                <h3>Amount To Produce</h3>
+                            </div>
+                            <p>0.0</p>
+                        </div>
+                        <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
+                            <div class="flexDirectionColumn flexCenterSingleRow">
+                                <img src="#">
+                                <h3>Acceptable Products</h3>
+                            </div>
+                            <p>0.0</p>
+                        </div>
+                        <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
+                            <div class="flexDirectionColumn flexCenterSingleRow">
+                                <img src="#">
+                                <h3>Vibration</h3><br>
+                            </div>
+                            <p>0.0</p>
+                        </div>
+                        <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
+                            <div class="flexDirectionColumn flexCenterSingleRow">
+                                <img src="#">
+                                <h3>Products Per Minute</h3>
+                            </div>
+                            <p>0.0</p>
+                        </div>
+                        <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
+                            <div class="flexDirectionColumn flexCenterSingleRow">
+                                <img src="#">
+                                <h3>Defect Products</h3>
+                            </div>
+                            <p>0.0</p>
+                        </div>
+                    </div>       
+                    <div class="flexCenterSingleRow">
                         <button class="buttonDefault">Stop</button>
                         <button class="buttonDefault">Reset</button>
                         <button class="buttonDefault">Clear</button>
@@ -107,13 +153,14 @@
                 </div>
             </div>
         </div>
-        <!--FOOTER-->
+        <!-- FOOTER -->
         <footer>
             <div class="wrapper">
                 <p>User interface developed by group 5: <br> Jonas Svane, Arem Dogan, Emma Johanne Bovtrup, Andreas Schmidtm Tumpebjerg <br>
                     Karthikan Vimalarasan, Wahid Tobias Winberg Razzaghi</p>
             </div>
         </footer>
+        <!-- SCRIPT -->
         <script>
             function poll(){
                 fetch("http://localhost:3000/opcua_data")
