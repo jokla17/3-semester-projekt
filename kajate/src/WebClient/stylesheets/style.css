@@ -49,7 +49,7 @@ html, body {
 
 header {
     background-color: var(--header-bg-color);
-    padding: 15px 0 15px 0;
+    padding: 20px 0 15px 0;
 }
 
 footer {
@@ -60,8 +60,9 @@ footer {
 }
 
 footer p {
-    margin-top: 30px;
+    margin-top: 45px;
     line-height: 25px;
+    font-size: 17px;
 }
 
 /** Side bar **/
@@ -72,13 +73,13 @@ aside {
 
 #logoContainer > img {
     width: 100%;
-    max-width: 250px;
-    padding: 40px 0 40px 0;
+    max-width: 230px;
+    padding: 50px 0 40px 0;
 }
 
 aside > nav > ul > li {
     font-weight: bold;
-    padding: 15px 30px 15px 30px;
+    padding: 20px 30px 20px 30px;
 }
 
 aside > nav > ul > li:hover {
@@ -95,7 +96,7 @@ aside > nav > ul > li > a {
 /**********************/
 /** Classes and ids ***/
 /**********************/
-.mainWrapper {
+.wrapper {
     display: flex;
     justify-content: center;
     max-width: 960px;
@@ -104,77 +105,55 @@ aside > nav > ul > li > a {
     margin: 0 auto;
 }
 
-#secCreateBatch {
-    background-color: var(--contentBoxes-bg-color);
-}
-
-#tfBatchId {
-    width: 100px;
-}
-
-#tfMachineSpeed {
-    width: 100px;
-}
-
-#secCreateBatch {
+.contentBox {
     background-color: var(--contentBoxes-bg-color);
     border-radius: 8px;
     margin-top: 25px;
     padding: 20px;
 }
 
-#secBatchReport {
-    width: 350px;
-    background-color: var(--contentBoxes-bg-color);
-    border-radius: 8px;
-    margin-top: 25px;
-    padding: 20px;
-}
-
-#innerBatchReport{
+.innerContentBox {
     background-color: var( --main-bg-color) ;
     border-radius: 8px;
     padding: 10px;
 }
 
-#btnSave{
+/** Form **/
+#formCreateBatch {
+    margin-right: 20px;
+}
+
+#tfBatchId, #tfProductAmount, #tfMachineSpeed {
+    max-width: 100px;
+}
+
+#formCreateBatch > input[type=text] {
+    width: 100%;
+}
+
+
+/** Buttons **/
+.buttonDefault {
     background-color: var(--successButton-bg-color);
     color: var(--text-bg-color);
     border-radius: 4px;
-    padding: 2px;
-    text-align: center;
-    display: flex;
     font-size: 12px;
-    margin: 4px 2px;
 }
 
-#btnStart {
-    background-color: var(--successButton-bg-color);
-    color: var(--text-bg-color);
-    border-radius: 4px;
-    padding: 2px;
-    text-align: center;
-    display: flex;
-    font-size: 12px;
-    margin: 4px 2px;
-}
-
+/** Header properties **/
 #searchField {
     display: flex;
     flex: 1;
     justify-content: flex-end;
 }
 
-/** Realtime Visualtion **/
-#secRealtimeVisualization {
-    background-color: var(--contentBoxes-bg-color);
-    margin: 25px 0 25px 0;
+/** Realtime Visualization box **/
+#realtimeVisualization {
+    margin: 20px 0 20px 0;
     padding: 20px;
     border-radius: 8px;
-    height: 100%;
-    min-height: 300px;
 }
 
-#secRealtimeVisualization ul{
-    margin: 30px 0 30px 0;
+#realtimeVisualization ul{
+    margin: 40px 0 40px 0;
 }

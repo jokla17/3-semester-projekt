@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Kajate MES</title>
+        <title>Kajate | MES</title>
         <link rel="stylesheet" href="stylesheets/variables.css">
         <link rel="stylesheet" href="stylesheets/style.css">
     </head>
     <body>
+        <!--TOP HEADER-->
         <header>
-            <div class="mainWrapper">
-                <div id="dateTime">
-                    <p>12:45 30-10-2020</p>
-                </div>
+            <div class="wrapper">
+                <p id="dateTime">12:45 30-10-2020</p>
                 <div id="searchField">
-                    <input type="text" placeholder="Search batch products ...">
+                    <input type="text" placeholder="Search batch products...">
                     <button type="submit">Search</button>
                 </div>
             </div>
         </header>
-
-        <div class="mainWrapper">
+        <div class="wrapper">
+            <!--SIDEBAR-->
             <aside class="flex-size-1 flexDirectionColumn">
                 <div class="flexCenter" id="logoContainer">
-                    <img src="images/logo-web-png.png">
+                    <img src="./images/logo-web.png">
                 </div>
                 <nav>
                     <ul>
@@ -33,49 +32,35 @@
                     </ul>
                 </nav>
             </aside>
-
+            <!--DASHBOARD BOXES-->
             <div class="flex-size-2 flexDirectionColumn">
                 <div class="flexDirectionRow flexSpaceBetween">
-                    <div id="secCreateBatch">
-                        <form id="fCreateBatch" action="http://localhost:3000/form_data" method="post" target="_blank">
-                            <h2>Create Batch</h2>
-                            <label>Batch ID:</label> <br>
-                            <input name="tfBatchId" type="text" id="tfBatchId" disabled>
-                            <input type="radio" id="autoBatchId" name="auto" value="auto">
-                            <label for="auto">Auto</label>
-                            <br>
-                            <br>
-                            <label>Product Type:</label> <br>
-                            <select id="productType" name="productType">
-                                <option value="Pilsner">Pilsner</option>
-                                <option value="Wheat">Wheat</option>
-                                <option value="IPA">IPA</option>
-                                <option value="Stout">Stout</option>
-                                <option value="Ale">Ale</option>
-                                <option value="Alcohol-free">Alcohol-free</option>
-                            </select>                       
-                            <br>
-                            <br>
-                            <label>Amount:</label><br>
-                            <input name="tfProductAmount" type="text" id="tfProductAmount">
-                            <br>
-                            <br>                                           
-                            <label>Machine Speed:</label> <br>
-                            <input name="tfMachineSpeed" type="text" id="tfMachineSpeed" disabled>            
-                            <input type="radio" id="autoMachineSpeed" name="auto" value="auto">
-                            <label for="auto">Auto</label>
-                                                        
-                            <br>
-                            <br>
-                            <input type="submit" id="btnStart" form="fCreateBatch" value="Start">
-                        </form>
-                    </div>
-
-                    <div id="secBatchReport">
-                        <div class="flexCenter">
-                            <h2>Current Batch Report</h2>
-                        </div>
-                        <div id="innerBatchReport">
+                    <form class="flex-size-1 contentBox" id="formCreateBatch" action="http://localhost:3000/form_data" method="post" target="_blank">
+                        <h2 class="flexCenter">Create Batch</h2>
+                        <label>Batch ID:</label><br>
+                        <input name="tfBatchId" type="text" id="tfBatchId" disabled>
+                        <input type="radio" id="autoBatchId" name="auto" value="auto">
+                        <label for="auto">Auto</label><br><br>
+                        <label>Product Type:</label><br>
+                        <select id="productType" name="productType">
+                            <option value="Pilsner">Pilsner</option>
+                            <option value="Wheat">Wheat</option>
+                            <option value="IPA">IPA</option>
+                            <option value="Stout">Stout</option>
+                            <option value="Ale">Ale</option>
+                            <option value="Alcohol-free">Alcohol-free</option>
+                        </select><br><br>
+                        <label>Amount:</label><br>
+                        <input name="tfProductAmount" type="text" id="tfProductAmount"><br><br>                                           
+                        <label>Machine Speed:</label> <br>
+                        <input name="tfMachineSpeed" type="text" id="tfMachineSpeed" disabled>            
+                        <input type="radio" id="autoMachineSpeed" name="auto" value="auto">
+                        <label for="auto">Auto</label>
+                        <span class="flexCenter"><input class="buttonDefault" type="submit" id="btnStart" value="Start"></span>
+                    </form>
+                    <div class="flex-size-2 contentBox">
+                        <h2 class="flexCenter">Current Batch Report</h2>
+                        <div class="innerContentBox">
                             <li>Batch id: <span id="spanBatchId"> 0 </span></li>
                             <li>Beer type: <span id="spanProductId"> 0 </span> </li>
                             <li>Amount to produce: <span id="spanAmountId">0</li> </span></li>
@@ -88,11 +73,10 @@
                             <li>Machine speed: <span id="spanSpeedId"> 0 </span></li>
                             <li>Produced: <span id="spanProducedId"> 0 </span></li>
                         </div>
-                        <div class="flexCenter"><input type="submit" id="btnSave" value="Save As PDF"></div>
+                        <span class="flexCenter"><input class="buttonDefault" type="submit" id="btnSave" value="Save As PDF"></span>
                     </div>
                 </div>
-
-                <div id="secRealtimeVisualization" class="flexDirectionColumn flexCenter">
+                <div class="contentBox flexDirectionColumn flexCenter" id="realtimeVisualization">
                     <div>
                         <ul class="flexCenter flexDirectionRow flexSpaceBetween">
                             <li>Temperature: <span id="">0.0</span></li>
@@ -115,25 +99,21 @@
                         </ul>
                     </div>
                     <div class="flexCenter">
-                        <button>Stop</button>
-                        <button>Reset</button>
-                        <button>Clear</button>
-                        <button>Abort</button>
+                        <button class="buttonDefault">Stop</button>
+                        <button class="buttonDefault">Reset</button>
+                        <button class="buttonDefault">Clear</button>
+                        <button class="buttonDefault">Abort</button>
                     </div>
                 </div>
             </div>
         </div>
+        <!--FOOTER-->
         <footer>
-            <div class="mainWrapper">
-
-                <p>
-                    User interface developed by group 5: <br> Jonas Svane, Arem Dogan, Emma Johanne Bovtrup, Andreas Schmidt
-                    Tumpebjerg <br>
-                    Karthikan Vimalarasan, Wahid Tobias Winberg Razzaghi
-                </p>
+            <div class="wrapper">
+                <p>User interface developed by group 5: <br> Jonas Svane, Arem Dogan, Emma Johanne Bovtrup, Andreas Schmidtm Tumpebjerg <br>
+                    Karthikan Vimalarasan, Wahid Tobias Winberg Razzaghi</p>
             </div>
         </footer>
-
         <script>
             function poll(){
                 fetch("http://localhost:3000/opcua_data")
