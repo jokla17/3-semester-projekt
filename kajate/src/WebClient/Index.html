@@ -19,10 +19,10 @@
             <label for: "machineSpeed">Machine Speed:</label>
             <input name="tfMachineSpeed" type="text" id="tfMachineSpeed"><br>
             <input type="submit" id="btnStart" value="Start">    
-            <!-- <input type="submit" value="Stop">
+            <input type="submit" id="btnStop" value="Stop">
             <input type="submit" value="Reset">
             <input type="submit" value="Abort">
-            <input type="submit" value="Clear"> -->
+            <input type="submit" value="Clear">
         </form>
         <ul> 
             <li>Batch id: <span id="spanBatchId"> 0 </span></li> 
@@ -33,6 +33,13 @@
         </ul>
 
         <script>
+            function stopProduction(){
+                fetch("http://localhost:3000/stop_production");
+            }
+            document.getElementById("btnStop").addEventListener("click", () => {
+                    stopProduction();
+            });
+
            function poll(){
                 fetch("http://localhost:3000/opcua_data")
                 .then(response => response.json())
