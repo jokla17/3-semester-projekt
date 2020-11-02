@@ -11,12 +11,27 @@ app.use(cors());
 let formData = {}
 let opcuaData = {}
 
-// Get
-app.get("/", (request, response) => {
-    response.send("RECEIVED GET REQUEST");
+// Get request handlers
+app.get("/stop_production", (request, response) => {
+    runJar("StopProduction");
+    response.send("Production has been stopped...");
 });
 
-// Get form_data
+app.get("/abort_production", (request, response) => {
+    runJar("AbortProduction");
+    response.send("Production has been aborted...");
+});
+
+app.get("/clear_production", (request, response) => {
+    runJar("ClearProduction");
+    response.send("Production has been cleared...");
+});
+
+app.get("/reset_production", (request, response) => {
+    runJar("ResetProduction");
+    response.send("Production has been reset...");
+});
+
 app.get("/form_data", (request, response) => {
     response.send(formData);
 });
@@ -25,7 +40,7 @@ app.get("/opcua_data", (request, response) => {
     response.send(opcuaData);
 });
 
-// Post
+// Post request handlers
 app.post("/form_data", (request, response) => { 
     response.send("RECEIVED POST REQUEST");
     formData = request.body;
@@ -42,20 +57,31 @@ app.post("/form_data", (request, response) => {
     });  
 });
 
-
-// Put
+// Put request handlers
 app.put("/opcua_data", (request, response) => {
     opcuaData = request.body;  
     console.log(opcuaData);
     response.send("RECEIVED PUT REQUEST");
 });
 
-// Delete
+// Delete request handlers
 app.delete("/", () => {
     response.send("RECEIVED DELETE REQUEST");
 });
 
-// Server listens on port 3000
+// Run jar function
+let runJar = (jarFileName) => {
+    var exec = require('child_process').exec, child;
+    child = exec("java -jar ./" + jarFileName + ".jar",
+    function (error, stdout, stderr){
+    console.log('stdout: ' + stdout);
+    console.log('stderr: ' + stderr);
+    if(error !== null){
+        console.log('exec error: ' + error);
+    }
+    }); 
+}   
+    
 console.log("\n---------------------------------------")
 console.log("WebServer is running...\nListens on requests sent to the server on port 3000...")
 console.log("---------------------------------------\n");
@@ -63,16 +89,3 @@ app.listen(3000);
 
 
 
-/*
-var exec = require('child_process').exec, child;
-    child = exec('java -jar ***put jar file in WebServer folder, and type ./FileName here***',
-    child = exec('java -jar ***put jar file in WebServer folder, and type ./FileName here***',
-    child = exec('java -jar ***put jar file in WebServer folder, and type ./FileName here***',
-    child = exec('java -jar ***put jar file in WebServer folder, and type ./FileName here***',
-    function (error, stdout, stderr){
-    console.log('stdout: ' + stdout);
-    console.log('stderr: ' + stderr);
-    if(error !== null){
-        console.log('exec error: ' + error);
-    }
-*/

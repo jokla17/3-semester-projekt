@@ -7,12 +7,9 @@ import java.util.List;
 import java.util.concurrent.Flow.Subscription;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiConsumer;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
 import java.lang.Math;
-
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
 import org.eclipse.milo.opcua.sdk.client.api.config.OpcUaClientConfigBuilder;
 import org.eclipse.milo.opcua.sdk.client.api.subscriptions.UaMonitoredItem;
@@ -34,7 +31,9 @@ import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned;
 public class OPCUaServerConnection {
     private String opcServerAddress = "opc.tcp://localhost:4840";
     private static AtomicLong clientHandles = new AtomicLong(1L);
-    
+    HashMap<String, Object> dataset = new HashMap<String, Object>();
+    OpcUaClient OpcClient = connectToOPCUAServer();
+
     // Singleton instance
     private static OPCUaServerConnection instance = new OPCUaServerConnection();
     
@@ -45,19 +44,32 @@ public class OPCUaServerConnection {
     // Constructor
     public OPCUaServerConnection () {}
     
-    /* ::Deprecated::
-    HashMap<String, Object> parameters = new HashMap<String, Object>();
+    //All tags, nodeidentifiers maps to readable string
+    HashMap<String, String> nodeIdMap = new HashMap<String, String>();
     {{
-        parameters.put("reset", 1);
-        parameters.put("execute", true);
-        parameters.put("batchId", (float) 2);
-        parameters.put("type", (float) 0);
-        parameters.put("amount", (float) 20);
-        parameters.put("machspeed", (float) 120);
-        parameters.put("start", 2);
+        nodeIdMap.put("::Program:Cube.Admin.ProdProcessedCount",    "ProdProcessedCount");
+        nodeIdMap.put("::Program:Cube.Admin.ProdDefectiveCount",    "ProdDefectiveCount");
+        nodeIdMap.put("::Program:Cube.Admin.StopReason.Id",         "StopReasonId");
+        nodeIdMap.put("::Program:Cube.Admin.StopReason.Value",      "StopReasonValue");
+        nodeIdMap.put("::Program:Cube.Admin.Parameter[0]",          "ProductId");
+
+        nodeIdMap.put("::Program:Cube.Status.StateCurrent",         "State");
+        nodeIdMap.put("::Program:Cube.Status.MachSpeed",            "Speed");
+        nodeIdMap.put("::Program:Cube.Status.CurMachSpeed",         "CurSpeed");
+        nodeIdMap.put("::Program:Cube.Status.Parameter[0]",         "BatchId");
+        nodeIdMap.put("::Program:Cube.Status.Parameter[1]",         "Products");
+        nodeIdMap.put("::Program:Cube.Status.Parameter[2]",         "Humidity");
+        nodeIdMap.put("::Program:Cube.Status.Parameter[3]",         "Temperature");
+        nodeIdMap.put("::Program:Cube.Status.Parameter[4]",         "Vibration");
+
+        nodeIdMap.put( "::Program:Cube.Command.Parameter[0].Value", "SetBatchId");
+        nodeIdMap.put( "::Program:Cube.Command.Parameter[1].Value", "SetType");
+        nodeIdMap.put( "::Program:Cube.Command.Parameter[2].Value", "SetAmount");
+        nodeIdMap.put( "::Program:Cube.Command.CntrlCmd",           "SetCntrlCmd");
+        nodeIdMap.put( "::Program:Cube.Command.CmdChangeRequest",   "SetCmdChangeRequest");
+        nodeIdMap.put( "::Program:Cube.Command.MachSpeed",          "SetMachSpeed");
     }}
-    */
-    
+
     //Misc tags *read-only
     HashMap<String, String> adminTags = new HashMap<String, String>(); 
     {{
@@ -74,11 +86,11 @@ public class OPCUaServerConnection {
         statusTags.put("State",         "::Program:Cube.Status.StateCurrent");  //Current state
         statusTags.put("Speed",         "::Program:Cube.Status.MachSpeed");     //Current machine speed in products per minute
         statusTags.put("CurSpeed",      "::Program:Cube.Status.CurMachSpeed");  //Normalized machine speed (0-100)
-        statusTags.put("BatchId",       "::Program:Cube.Status.Parameter[0]");  //Current batch id
-        statusTags.put("Products",      "::Program:Cube.Status.Parameter[1]");  //Products in current batch
-        statusTags.put("Humidity",      "::Program:Cube.Status.Parameter[2]");  //Relative humidity
-        statusTags.put("Temperature",   "::Program:Cube.Status.Parameter[3]");  //Temperature
-        statusTags.put("Vibration",     "::Program:Cube.Status.Parameter[4]");  //Vibration
+        statusTags.put("BatchId",       "::Program:Cube.Status.Parameter[0].Value");  //Current batch id
+        statusTags.put("Products",      "::Program:Cube.Status.Parameter[1].Value");  //Products in current batch
+        statusTags.put("Humidity",      "::Program:Cube.Status.Parameter[2].Value");  //Relative humidity
+        statusTags.put("Temperature",   "::Program:Cube.Status.Parameter[3].Value");  //Temperature
+        statusTags.put("Vibration",     "::Program:Cube.Status.Parameter[4].Value");  //Vibration
     }}
 
     //PackTags for writing commands *read-write
@@ -90,16 +102,6 @@ public class OPCUaServerConnection {
         commandTags.put("CntrlCmd",         "::Program:Cube.Command.CntrlCmd");             //int | [1]reset;[2]start;[3]stop;[4]abort;[5]clear
         commandTags.put("CmdChangeRequest", "::Program:Cube.Command.CmdChangeRequest");     //bool | [true]starts system with given inputs;[false]idle
         commandTags.put("MachSpeed",        "::Program:Cube.Command.MachSpeed");            //float | BEWARE of different beer types
-    }}
-
-    HashMap<String, Float> beerTypes = new HashMap<String, Float>();
-    {{
-        beerTypes.put("Pilsner", (float)0);
-        beerTypes.put("Wheat", (float)1);
-        beerTypes.put("IPA", (float)2);
-        beerTypes.put("Stout", (float)3);
-        beerTypes.put("Ale", (float)4);
-        beerTypes.put("Alcohol-free", (float)5);
     }}
 
     HashMap<String, Integer> cntrlCmds = new HashMap <String, Integer>();
@@ -132,9 +134,13 @@ public class OPCUaServerConnection {
         String readValue = null;
         try {
             NodeId nodeIdOne = new NodeId(6, identifier);
-            DataValue dataValueOne = connectToOPCUAServer().readValue(0, TimestampsToReturn.Both, nodeIdOne).get();
+            DataValue dataValueOne = getInstance().OpcClient.readValue(0, TimestampsToReturn.Both, nodeIdOne).get();
             Variant variantOne = dataValueOne.getValue();
-            readValue = variantOne.getValue().toString();
+            if (variantOne.getValue() == null){
+                readValue = "Null";
+            } else {
+                readValue = variantOne.getValue().toString();   
+            }     
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -185,8 +191,29 @@ public class OPCUaServerConnection {
     }
     
     private static void onSubscriptionValue(UaMonitoredItem item, DataValue value) {
+        String identifier = getInstance().nodeIdMap.get(item.getReadValueId().getNodeId().getIdentifier().toString());
         System.out.println("Subscription value received: item=" + item.getReadValueId().getNodeId() + ", value=" + value.getValue());
-        WebRequestHandler.getInstance().putRequest("produced", value.getValue().getValue());
+
+        getInstance().dataset.put(identifier, value.getValue().getValue());
+        getInstance().dataset.put("CurSpeed", getInstance().readEndPoint(getInstance().statusTags.get("CurSpeed")));
+        getInstance().dataset.put("Humidity", getInstance().readEndPoint(getInstance().statusTags.get("Humidity")));
+        getInstance().dataset.put("Speed", getInstance().readEndPoint(getInstance().statusTags.get("Speed")));
+        getInstance().dataset.put("BatchId", getInstance().readEndPoint(getInstance().statusTags.get("BatchId")));
+        getInstance().dataset.put("Products", getInstance().readEndPoint(getInstance().statusTags.get("Products")));
+        getInstance().dataset.put("Temperature", getInstance().readEndPoint(getInstance().statusTags.get("Temperature")));
+        getInstance().dataset.put("Vibration", getInstance().readEndPoint(getInstance().statusTags.get("Vibration")));
+        getInstance().dataset.put("ProdDefectiveCount", getInstance().readEndPoint(getInstance().adminTags.get("ProdDefectiveCount")));
+
+        System.out.println("CurSpeed: " + getInstance().dataset.get("CurSpeed"));
+        System.out.println("Humidity: " + getInstance().dataset.get("Humidity"));
+        System.out.println("Speed: " + getInstance().dataset.get("Speed"));
+        System.out.println("BatchId: " + getInstance().dataset.get("BatchId"));
+        System.out.println("Products: " + getInstance().dataset.get("Products"));
+        System.out.println("Temperature: " + getInstance().dataset.get("Temperature"));
+        System.out.println("Vibration: " + getInstance().dataset.get("Vibration"));
+        System.out.println("ProdDefectiveCount: " + getInstance().dataset.get("ProdDefectiveCount"));
+
+        WebRequestHandler.getInstance().putRequest(getInstance().dataset);
     }
 
     public void startProduction(){
@@ -208,15 +235,34 @@ public class OPCUaServerConnection {
         writeToEndpoint(commandTags.get("MachSpeed"),         machineSpeed);            // Machine speed
         writeToEndpoint(commandTags.get("CntrlCmd"),          cntrlCmds.get("Start"));  // PackTag command for "Start Production"
         writeToEndpoint(commandTags.get("CmdChangeRequest"),  true);                    // Execute command
+
+        getInstance().subscribeToEndpoint(getInstance().adminTags.get("ProdProcessedCount")); //subscribes to the data on ProdProcessedCount
     }
     
-    public static void main (String[]args){
-        OPCUaServerConnection client = getInstance();
-        client.startProduction();
+    public void stopProduction(){
+        writeToEndpoint(commandTags.get("CntrlCmd"), cntrlCmds.get("Stop"));  // PackTag command for "Stop Machine"
+        writeToEndpoint(commandTags.get("CmdChangeRequest"), true); // Execute command
+        // readstate?
+        getInstance().resetProduction();
+    }
 
-        System.out.println(client.readEndPoint(client.commandTags.get("MachSpeed")));
+    public void clearProduction(){
+        writeToEndpoint(commandTags.get("CntrlCmd"), cntrlCmds.get("Clear"));  // PackTag command for "Clear Machine"
+        writeToEndpoint(commandTags.get("CmdChangeRequest"), true);  // Execute command
+        // readstate?
+        getInstance().resetProduction();
+    }
 
-        client.subscribeToEndpoint(client.adminTags.get("ProdProcessedCount")); //subscribes to the data on ProdProcessedCount    
+    public void resetProduction(){
+        writeToEndpoint(commandTags.get("CntrlCmd"), cntrlCmds.get("Reset"));  // PackTag command for "Reset Machine"
+        writeToEndpoint(commandTags.get("CmdChangeRequest"),true); // Execute command
+    }
+
+    public void abortProduction(){
+        writeToEndpoint(commandTags.get("CntrlCmd"), cntrlCmds.get("Abort"));  // PackTag command for "Abort Machine"
+        writeToEndpoint(commandTags.get("CmdChangeRequest"), true); // Execute command
+        // readstate?
+        getInstance().resetProduction();
     }
 }
  
