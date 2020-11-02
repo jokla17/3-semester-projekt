@@ -85,70 +85,70 @@
                                 <img src="#">
                                 <h3>Temperature</h3>
                             </div>
-                            <p>0.0</p>
+                            <p id="pTemperature">0.0</p>
                         </div>
                         <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
                             <div class="flexDirectionColumn flexCenterSingleRow">
                                 <img src="#">
                                 <h3>Batch ID</h3>
                             </div>
-                            <p>0.0</p>
+                            <p id="pBatchId">0.0</p>
                         </div>
                         <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
                             <div class="flexDirectionColumn flexCenterSingleRow">
                                 <img src="#">
                                 <h3>Produced</h3>
                             </div>
-                            <p>0.0</p>
+                            <p id="pProduced">0.0</p>
                         </div>
                         <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
                             <div class="flexDirectionColumn flexCenterSingleRow">
                                 <img src="#">
                                 <h3>Humidity</h3><br>
                             </div>
-                            <p>0.0</p>
+                            <p id="pHumidity">0.0</p>
                         </div>
                         <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
                             <div class="flexDirectionColumn flexCenterSingleRow">
                                 <img src="#">
                                 <h3>Amount To Produce</h3>
                             </div>
-                            <p>0.0</p>
+                            <p id="pAmount">0.0</p>
                         </div>
                         <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
                             <div class="flexDirectionColumn flexCenterSingleRow">
                                 <img src="#">
                                 <h3>Acceptable Products</h3>
                             </div>
-                            <p>0.0</p>
+                            <p id="pAcceptableProducts">0.0</p>
                         </div>
                         <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
                             <div class="flexDirectionColumn flexCenterSingleRow">
                                 <img src="#">
                                 <h3>Vibration</h3><br>
                             </div>
-                            <p>0.0</p>
+                            <p id="pVibration">0.0</p>
                         </div>
                         <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
                             <div class="flexDirectionColumn flexCenterSingleRow">
                                 <img src="#">
                                 <h3>Products Per Minute</h3>
                             </div>
-                            <p>0.0</p>
+                            <p id="pProductsPerMinute">0.0</p>
                         </div>
                         <div class="flexDirectionRow flexCenterSingleRow flexSpaceBetween" id="rtvBox">
                             <div class="flexDirectionColumn flexCenterSingleRow">
                                 <img src="#">
                                 <h3>Defect Products</h3>
                             </div>
-                            <p>0.0</p>
+                            <p id="pDefectProducts">0.0</p>
                         </div>
                     </div>       
                     <div class="flexCenterSingleRow">
-                        <button class="buttonDefault">Stop</button>
-                        <button class="buttonDefault">Reset</button>
-                        <button class="buttonDefault">Clear</button>
-                        <button class="buttonDefault">Abort</button>
+                        <button class="buttonDefault" id="btnStop">Stop</button>
+                        <button class="buttonDefault" id="btnReset">Reset</button>
+                        <button class="buttonDefault" id="btnClear">Clear</button>
+                        <button class="buttonDefault" id="btnAbort">Abort</button>
                     </div>
                 </div>
             </div>
@@ -161,27 +161,7 @@
             </div>
         </footer>
         <!-- SCRIPT -->
-        <script>
-            function poll(){
-                fetch("http://localhost:3000/opcua_data")
-                .then(response => response.json())
-                .then(json => { 
-                    document.getElementById("spanBatchId").innerText = document.getElementById("tfBatchID").value;
-                    document.getElementById("spanProductId").innerText = document.getElementById("tfProductType").value;
-                    document.getElementById("spanAmountId").innerText = document.getElementById("tfProductAmount").value;
-                    document.getElementById("spanSpeedId").innerText = document.getElementById("tfMachineSpeed").value;
-                    document.getElementById("spanProducedId").innerText = json.produced;
-                })
-                .then(() => setTimeout(poll(), 500))
-                .catch(err => console.log(err));
-            }
-        
-            document.getElementById("btnStart").addEventListener("click", () => {
-                setTimeout(() => {
-                    poll();
-                }, 5000);
-            });
-        </script>
+        <script src="scripts/script.js"></script>
     </body>
 </html>
 
