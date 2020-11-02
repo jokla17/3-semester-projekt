@@ -1,0 +1,193 @@
+/* Default */
+*  {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    outline: 0;
+    list-style-type: none;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;  
+}
+
+/* Flex properties */
+.flex-size-1 {
+    flex: 1;
+}
+
+.flex-size-2 {
+    flex: 2;
+}
+
+.flexDirectionColumn{
+    display: flex;
+    flex-direction: column;
+}
+
+.flexDirectionRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexCenterMultipleRows {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.flexCenterSingleRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexSpaceBetween {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flexSpaceAround {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flexWrap {
+    flex-wrap: wrap;
+}
+
+/* HTML elements */
+html, body {
+    background-color: var(--main-bg-color);
+    height: 100%;
+}
+
+header {
+    background-color: var(--header-bg-color);
+    padding: 20px 0 15px 0;
+}
+
+footer {
+    height: 100%;
+    background-color: var(--footer-bg-color);
+    color: var(--footerText-color);
+    text-align: center;
+}
+
+footer p {
+    padding-top: 45px;
+    padding-bottom: 45px;
+    line-height: 25px;
+    font-size: 17px;
+}
+
+/** Side bar **/
+aside {
+    background-color: var(--sidebar-bg-color);
+    margin-right: 30px;
+}
+
+#logoContainer > img {
+    width: 100%;
+    max-width: 230px;
+    padding: 50px 0 40px 0;
+}
+
+aside > nav > ul > li {
+    font-weight: bold;
+    padding: 20px 40px 20px 40px;
+}
+
+aside > nav > ul > li:hover {
+    background-color: var(--sidebar-hover-color);
+    cursor: pointer;
+}
+
+aside > nav > ul > li > a {
+    font-size: 16px;
+    text-transform: uppercase;
+    color: var(--text-default-color);
+}
+
+/* Wrapper */
+.wrapper {
+    display: flex;
+    justify-content: center;
+    max-width: 960px;
+    width: 100%;
+    align-content: center;
+    margin: 0 auto;
+}
+
+/* Container boxes */
+.containerBox {
+    background-color: var(--contentBoxes-bg-color);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/** Report **/
+#report {
+    margin: 20px 0 0 0;
+}
+
+
+.innerContentBox {
+    background-color: var( --main-bg-color) ;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+/** Form **/
+#formCreateBatch {
+    margin: 20px 20px 0 0;
+}
+
+#tfBatchId, #tfProductAmount, #tfMachineSpeed {
+    max-width: 100px;
+}
+
+#formCreateBatch > input[type=text] {
+    width: 100%;
+}
+
+/** Buttons **/
+.buttonDefault {
+    background-color: var(--successButton-bg-color);
+    color: var(--text-bg-color);
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/** Search field **/
+#searchField {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+/** Realtime Visualization box **/
+#realtimeVisualization {
+    margin: 20px 0 20px 0;
+}
+
+#rtvBox {
+    width: 170px;
+    margin: 15px 0 15px 0;
+}
+
+#rtvBox img {
+    width: 100%;
+    max-width: 50px;
+}
+
+#rtvBox h3 {
+    width: 120px;
+    font-size: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+#rtvBox p {
+    font-size: 24px;
+    font-weight: bold;
+}
