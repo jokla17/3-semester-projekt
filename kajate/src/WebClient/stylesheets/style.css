@@ -1,21 +1,35 @@
-/* Default */
+/* DEFAULT */
 *  {
     margin: 0;
     padding: 0;
     user-select: none;
     outline: 0;
+    border: none;
     list-style-type: none;
     text-decoration: none;
     font-family: 'Roboto', sans-serif;  
 }
 
-/* Flex properties */
-.flex-size-1 {
+input[type="button"], input[type="submit"], button {
+    cursor: pointer;
+}
+
+html, body {
+    background-color: var(--main-bg-color);
+    height: 100%;
+}
+
+/* FLEX STRUCTURAL PROPERTIES */
+.flexSize1 {
     flex: 1;
 }
 
-.flex-size-2 {
+.flexSize2 {
     flex: 2;
+}
+
+.flexSize3 {
+    flex: 3;
 }
 
 .flexDirectionColumn{
@@ -29,44 +43,46 @@
 }
 
 .flexCenterMultipleRows {
-    display: flex;
     justify-content: center;
     align-content: center;
 }
 
 .flexCenterSingleRow {
-    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.flexSpaceBetween {
-    display: flex;
-    justify-content: space-around;
+.flexSpaceEvenly {
+    justify-content: space-evenly;
 }
 
-.flexSpaceAround {
-    display: flex;
-    justify-content: space-around;
+.flexSpaceBetween {
+    justify-content: space-between;
 }
 
 .flexWrap {
     flex-wrap: wrap;
 }
 
-/* HTML elements */
-html, body {
-    background-color: var(--main-bg-color);
-    height: 100%;
+.flexRight {
+    justify-content: flex-end;
+    align-items: center
 }
 
+.flexLeft {
+    justify-content: flex-start;
+    align-items: center
+}
+
+/** HEADER **/
 header {
     background-color: var(--header-bg-color);
     padding: 20px 0 15px 0;
 }
 
+/** FOOTER **/
 footer {
-    height: 100%;
+    width: 100%;
     background-color: var(--footer-bg-color);
     color: var(--footerText-color);
     text-align: center;
@@ -79,10 +95,13 @@ footer p {
     font-size: 17px;
 }
 
-/** Side bar **/
+/** SIDE BAR **/
 aside {
     background-color: var(--sidebar-bg-color);
-    margin-right: 30px;
+    background-image: url("../images/wallpaper/sidebar-bg.jpg");
+    background-repeat: no-repeat;
+    background-position: 30% center;
+    background-size: cover;
 }
 
 #logoContainer > img {
@@ -102,81 +121,125 @@ aside > nav > ul > li:hover {
 }
 
 aside > nav > ul > li > a {
+    display: flex;
     font-size: 16px;
     text-transform: uppercase;
     color: var(--text-default-color);
 }
 
-/* Wrapper */
-.wrapper {
-    display: flex;
-    justify-content: center;
-    max-width: 960px;
+aside > nav > ul > li > a > img {
     width: 100%;
-    align-content: center;
+    max-width: 30px;
+    margin-right: 15px;
+}
+
+/* WRAPPER */
+.wrapper {
+    width: 100%;
+    max-width: 960px;
     margin: 0 auto;
 }
 
-/* Container boxes */
+/* CONTAINERS */
 .containerBox {
     background-color: var(--contentBoxes-bg-color);
     border-radius: 8px;
     padding: 20px;
 }
 
-/** Report **/
-#report {
-    margin: 20px 0 0 0;
+.containerBox h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
 }
 
+/** BUTTONS **/
+.buttonDefault {
+    background-color: var(--defaultButton-bg-color);
+    border-style: none;
+    border-radius: 12px;
+    padding: 10px 20px 10px 20px;
+    margin: 0 10px 0 10px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--text-bg-color);
+}
 
-.innerContentBox {
+.buttonSuccess {
+    background-color: var(--successButton-bg-color);
+}
+
+.buttonSuccess:hover {
+    background-color: var(--successButtonHover-bg-color);
+}
+
+.buttonWarning {
+    background-color: var(--warningButton-bg-color);
+}
+
+.buttonWarning:hover {
+    background-color: var(--warningButtonHover-bg-color);
+}
+
+/** INPUT FIELDS **/
+.defaultInput {
+    padding: 7px 0px 7px 10px;
+    border-radius: 8px;
+}
+
+/** FORM CREATE BATCH **/
+#formCreateBatch {
+    margin: 20px 0 20px 0;
+}
+
+#formCreateBatch input[type=text] {
+    width: 100%;
+    max-width: 110px;
+}
+
+#formCreateBatch input[type=radio] {
+    margin-left: 5px;
+}
+
+#lbAutoMachineSpeed, #lbAutoBatchId {
+    margin-left: 5px;
+}
+
+#formCreateBatch select {
+    width: 100%;
+    max-width: 120px;
+}
+
+/** CURRENT BATCH REPORT **/
+#report {
+    margin: 20px 0 20px 0;
+}
+
+#report .innerContentBox {
     background-color: var( --main-bg-color) ;
     border-radius: 8px;
-    padding: 10px;
+    padding: 20px 60px 20px 20px;
+    margin-bottom: 20px;
 }
 
-/** Form **/
-#formCreateBatch {
-    margin: 20px 20px 0 0;
+#report .innerContentBox li {
+    margin: 7px 0 7px 0;
+    font-size: 16px;
 }
 
-#tfBatchId, #tfProductAmount, #tfMachineSpeed {
-    max-width: 100px;
-}
-
-#formCreateBatch > input[type=text] {
-    width: 100%;
-}
-
-/** Buttons **/
-.buttonDefault {
-    background-color: var(--successButton-bg-color);
-    color: var(--text-bg-color);
-    border-radius: 4px;
-    font-size: 12px;
-}
-
-/** Search field **/
-#searchField {
-    display: flex;
-    flex: 1;
-    justify-content: flex-end;
-}
-
-/** Realtime Visualization box **/
+/** REALTIME VISUALIZATION **/
 #realtimeVisualization {
-    margin: 20px 0 20px 0;
+    margin: 0 20px 20px 20px;
 }
 
 #rtvBox {
     width: 170px;
-    margin: 15px 0 15px 0;
+    margin: 0px 0 20px 0;
 }
 
 #rtvBox img {
     width: 100%;
-    max-width: 50px;
+    max-width: 45px;
 }
 
 #rtvBox h3 {
@@ -191,3 +254,25 @@ aside > nav > ul > li > a {
     font-size: 24px;
     font-weight: bold;
 }
+
+/** SEARCH BAR **/
+#searchBar input[type="text"] {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 8px 0 0 8px;
+}
+
+#searchBar button {
+    padding: 7px 15px 7px 15px;
+    border-radius: 0 8px 8px 0;
+}
+
+#searchBar button img {
+    width: 16px;
+}
+
+/** DATE TIME **/
+#dateTime {
+    font-style: italic;
+}
+
