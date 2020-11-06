@@ -222,8 +222,8 @@ public class OPCUaServerConnection {
         Gson gson = new Gson();
         JsonObject jobj = gson.fromJson(response, JsonObject.class);
 
-        float batchID = jobj.get("tfBatchID").getAsFloat();
-        float productType = jobj.get("tfProductType").getAsFloat();
+        float batchID = jobj.get("tfBatchId").getAsFloat();
+        float productType = jobj.get("slProductType").getAsFloat();
         float productAmount = jobj.get("tfProductAmount").getAsFloat(); 
         float machineSpeed = jobj.get("tfMachineSpeed").getAsFloat();
 
@@ -263,6 +263,10 @@ public class OPCUaServerConnection {
         writeToEndpoint(commandTags.get("CmdChangeRequest"), true); // Execute command
         // readstate?
         getInstance().resetProduction();
+    }
+
+    public static void main(String[] args) {
+        getInstance().startProduction();
     }
 }
  

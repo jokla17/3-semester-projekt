@@ -1,24 +1,60 @@
 let MongoClient = require('mongodb').MongoClient;
 let url = "mongodb://localhost:27017/kajatedb";
 
+// Create database and collection
+exports.initalizeDatabase = () => {
+  MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      console.log("Database created!");
+
+      var dbo = db.db("kajatedb");
+      dbo.createCollection("batch_reports", function(err, res) {
+        console.log("Collection created!");
+      });
+
+      db.close()
+  });
+}
+
+exports.insertData = (jsonObject) => {
+  MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("kajatedb");
+      dbo.collection("batch_reports").insertOne(jsonObject, function(err, res) {
+        if (err) throw err;
+        console.log("1 document inserted");
+        db.close();
+      });
+  }); 
+}
+
+exports.updateData = (jsonObject) => {
+  MongoClient.connect(url, function(err, db) {
+      var dbo = db.db("kajatedb");
+      var myquery = { tfBatchId: "1" };
+      var newvalues = { $set: { tfMachineSpeed : jsonObject.ProdProcessedCount } }; // the value we want to update
+      dbo.collection("batch_reports").updateOne(myquery, newvalues, function(err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
+        db.close();
+      });
+  }); 
+}
+
 /*
-// Create database 
+// update
 MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myquery = { address: "Valley 345" };
+  var newvalues = { $set: {name: "Mickey", address: "Canyon 123" } };
+  dbo.collection("customers").updateOne(myquery, newvalues, function(err, res) {
     if (err) throw err;
-    console.log("Database created!");
-    db.close()
+    console.log("1 document updated");
+    db.close();
+  });
 });
 
-// Create collection
-MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("kajatedb");
-    dbo.createCollection("batch_reports", function(err, res) {
-      if (err) throw err;
-      console.log("Collection created!");
-      db.close();
-    });
-});
 
 // Insert row
 MongoClient.connect(url, function(err, db) {
@@ -32,7 +68,6 @@ MongoClient.connect(url, function(err, db) {
     });
 });
 
-
 // Query
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
@@ -44,7 +79,6 @@ MongoClient.connect(url, function(err, db) {
       db.close();
     });
 });
-*/
 
 // Delete
 MongoClient.connect(url, function(err, db) {
@@ -57,3 +91,4 @@ MongoClient.connect(url, function(err, db) {
     db.close();
   });
 });
+*/
