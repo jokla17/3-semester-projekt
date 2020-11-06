@@ -24,11 +24,11 @@
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="#"><img src="images/icons/dashboard-icon.png">Dashboard</a></li>
-                        <li><a href="#"><img src="images/icons/batch-report-icon.png"> Batch reports</a></li>
-                        <li><a href="#"><img src="images/icons/statistical analysis-icon.png">Statistical Analysis</a></li>
-                        <li><a href="#"><img src="images/icons/database-icon.png">Database Contents</a></li>
-                        <li><a href="#"><img src="images/icons/server-icon.png">Check Servers</a></li>
+                        <li><a href="./Index.html"><img src="images/icons/dashboard-icon.png">Dashboard</a></li>
+                        <li><a href="./BatchReport.html"><img src="images/icons/batch-report-icon.png"> Batch reports</a></li>
+                        <li><a href="./StatisticalAnalysis.html"><img src="images/icons/statistical analysis-icon.png">Statistical Analysis</a></li>
+                        <li><a href="./DatabaseContents.html"><img src="images/icons/database-icon.png">Database Contents</a></li>
+                        <li><a href="./CheckServers.html"><img src="images/icons/server-icon.png">Check Servers</a></li>
                     </ul>
                 </nav>
             </aside>
@@ -41,7 +41,7 @@
                         <label>Batch ID</label>
                         <div class="flexDirectionRow flexLeft">
                             <input class="defaultInput" name="tfBatchId" type="text" id="tfBatchId">
-                            <input type="radio" id="autoBatchId" value="auto">
+                            <input type="radio" id="autoBatchID" value="auto">
                             <label id="lbAutoBatchId">Auto</label>
                         </div>
                         <label>Product Type</label>
@@ -150,10 +150,10 @@
                             </div>
                         </div>       
                         <div class="flexDirectionRow flexCenterSingleRow">
-                            <button class="buttonDefault buttonWarning" id="btnStop">Stop</button>
-                            <button class="buttonDefault buttonWarning" id="btnReset">Reset</button>
-                            <button class="buttonDefault buttonWarning" id="btnClear">Clear</button>
-                            <button class="buttonDefault buttonWarning" id="btnAbort">Abort</button>
+                            <button class="buttonDefault buttonWarning" id="btnStop" action="http://localhost:3000/stop_production" method="get" target="_blank">Stop</button>
+                            <button class="buttonDefault buttonWarning" id="btnReset" action="http://localhost:3000/reset_production" method="get" target="_blank">Reset</button>
+                            <button class="buttonDefault buttonWarning" id="btnClear" action="http://localhost:3000/clear_production" method="get" target="_blank">Clear</button>
+                            <button class="buttonDefault buttonWarning" id="btnAbort" action="http://localhost:3000/abort_production" method="get" target="_blank">Abort</button>
                         </div>
                     </div>
                 </div>

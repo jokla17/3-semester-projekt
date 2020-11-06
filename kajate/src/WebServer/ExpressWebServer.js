@@ -47,7 +47,7 @@ app.post("/form_data", (request, response) => {
     console.log(formData);
 
     var exec = require('child_process').exec, child;
-    child = exec('java -jar ./StartProduction.jar',
+    child = exec('java -jar ./Jars/StartProduction.jar',
     function (error, stdout, stderr){
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
@@ -72,7 +72,7 @@ app.delete("/", () => {
 // Run jar function
 let runJar = (jarFileName) => {
     var exec = require('child_process').exec, child;
-    child = exec("java -jar ./" + jarFileName + ".jar",
+    child = exec("java -jar ./Jars/" + jarFileName + ".jar",
     function (error, stdout, stderr){
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
