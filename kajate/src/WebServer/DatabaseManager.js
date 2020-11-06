@@ -28,11 +28,11 @@ exports.insertData = (jsonObject) => {
   }); 
 }
 
-exports.updateData = (jsonObject) => {
+exports.updateData = (logs) => {
   MongoClient.connect(url, function(err, db) {
       var dbo = db.db("kajatedb");
       var myquery = { tfBatchId: "1" };
-      var newvalues = { $set: { tfMachineSpeed : jsonObject.ProdProcessedCount } }; // the value we want to update
+      var newvalues = { $set: { logs : { Produced : [logs] } } }; // the value we want to update
       dbo.collection("batch_reports").updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
         console.log("1 document updated");

@@ -1,15 +1,12 @@
 package OPCUaClient;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.Flow.Subscription;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiConsumer;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import java.lang.Math;
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
 import org.eclipse.milo.opcua.sdk.client.api.config.OpcUaClientConfigBuilder;
 import org.eclipse.milo.opcua.sdk.client.api.subscriptions.UaMonitoredItem;
@@ -242,14 +239,12 @@ public class OPCUaServerConnection {
     public void stopProduction(){
         writeToEndpoint(commandTags.get("CntrlCmd"), cntrlCmds.get("Stop"));  // PackTag command for "Stop Machine"
         writeToEndpoint(commandTags.get("CmdChangeRequest"), true); // Execute command
-        // readstate?
         getInstance().resetProduction();
     }
 
     public void clearProduction(){
         writeToEndpoint(commandTags.get("CntrlCmd"), cntrlCmds.get("Clear"));  // PackTag command for "Clear Machine"
         writeToEndpoint(commandTags.get("CmdChangeRequest"), true);  // Execute command
-        // readstate?
         getInstance().resetProduction();
     }
 
@@ -261,12 +256,7 @@ public class OPCUaServerConnection {
     public void abortProduction(){
         writeToEndpoint(commandTags.get("CntrlCmd"), cntrlCmds.get("Abort"));  // PackTag command for "Abort Machine"
         writeToEndpoint(commandTags.get("CmdChangeRequest"), true); // Execute command
-        // readstate?
         getInstance().resetProduction();
-    }
-
-    public static void main(String[] args) {
-        getInstance().startProduction();
     }
 }
  

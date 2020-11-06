@@ -50,11 +50,15 @@ app.post("/form_data", (request, response) => {
 });
 
 // Put request handlers
+let logs = [];
 app.put("/opcua_data", (request, response) => {
-    opcuaData = request.body;
-    dbmanager.updateData(opcuaData);
-    console.log(opcuaData);
     response.send("RECEIVED PUT REQUEST");
+
+    opcuaData = request.body;    
+    logs.push(opcuaData.ProdProcessedCount);
+    console.log(opcuaData);
+    console.log(logs);
+    dbmanager.updateData(logs.toString());
 });
     
 console.log("\n---------------------------------------")
