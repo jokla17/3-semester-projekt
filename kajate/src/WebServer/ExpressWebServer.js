@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json()); 
 app.use(cors());
 
+// Save temporary data
 let formData = {} 
 let opcuaData = {}
 
@@ -45,20 +46,15 @@ app.post("/form_data", (request, response) => {
     response.send("RECEIVED POST REQUEST");
     formData = request.body;
     console.log(formData);
-    dbmanager.insertData(formData);
     //runJar("StartProduction");
 });
 
 // Put request handlers
-let logs = [];
 app.put("/opcua_data", (request, response) => {
     response.send("RECEIVED PUT REQUEST");
-
     opcuaData = request.body;    
-    logs.push(opcuaData.ProdProcessedCount);
     console.log(opcuaData);
-    console.log(logs);
-    dbmanager.updateData(logs.toString());
+    dbmanager.updateData(opcuaData);
 });
     
 console.log("\n---------------------------------------")
