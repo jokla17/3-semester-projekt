@@ -1,14 +1,15 @@
-const { response } = require('express');
 let express = require('express');
 let bodyParser = require('body-parser');
 let cors = require('cors');
+let dbmanager = require('./DatabaseManager');
 let app = express();
 
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(express.json()); 
 app.use(cors());
 
-let formData = {}
+// Save temporary data
+let formData = {} 
 let opcuaData = {}
 
 // Get request handlers
@@ -45,29 +46,21 @@ app.post("/form_data", (request, response) => {
     response.send("RECEIVED POST REQUEST");
     formData = request.body;
     console.log(formData);
-
-    var exec = require('child_process').exec, child;
-    child = exec('java -jar ./StartProduction.jar',
-    function (error, stdout, stderr){
-    console.log('stdout: ' + stdout);
-    console.log('stderr: ' + stderr);
-    if(error !== null){
-        console.log('exec error: ' + error);
-    }
-    });  
+    //runJar("StartProduction");
 });
 
 // Put request handlers
 app.put("/opcua_data", (request, response) => {
-    opcuaData = request.body;  
-    console.log(opcuaData);
     response.send("RECEIVED PUT REQUEST");
+    opcuaData = request.body;    
+    console.log(opcuaData);
+    dbmanager.updateData(opcuaData);
 });
-
-// Delete request handlers
-app.delete("/", () => {
-    response.send("RECEIVED DELETE REQUEST");
-});
+    
+console.log("\n---------------------------------------")
+console.log("WebServer is running...\nListens on requests sent to the server on port 3000...")
+console.log("---------------------------------------\n");
+app.listen(3000);
 
 // Run jar function
 let runJar = (jarFileName) => {
@@ -81,11 +74,5 @@ let runJar = (jarFileName) => {
     }
     }); 
 }   
-    
-console.log("\n---------------------------------------")
-console.log("WebServer is running...\nListens on requests sent to the server on port 3000...")
-console.log("---------------------------------------\n");
-app.listen(3000);
-
 
 
