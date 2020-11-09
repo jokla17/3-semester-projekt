@@ -46,7 +46,7 @@ app.post("/form_data", (request, response) => {
     response.send("RECEIVED POST REQUEST");
     formData = request.body;
     console.log(formData);
-    //runJar("StartProduction");
+    runJar("StartProduction");
 });
 
 // Put request handlers
@@ -65,7 +65,7 @@ app.listen(3000);
 // Run jar function
 let runJar = (jarFileName) => {
     var exec = require('child_process').exec, child;
-    child = exec("java -jar ./" + jarFileName + ".jar",
+    child = exec("java -jar ./Jars/" + jarFileName + ".jar",
     function (error, stdout, stderr){
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
