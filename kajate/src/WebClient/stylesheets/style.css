@@ -5,6 +5,7 @@
     user-select: none;
     outline: 0;
     border: none;
+    color: inherit;
     list-style-type: none;
     text-decoration: none;
     font-family: 'Roboto', sans-serif;  
@@ -104,27 +105,25 @@ aside {
     background-size: cover;
 }
 
-#logoContainer > img {
+#logoContainer img {
     width: 100%;
     max-width: 230px;
     padding: 50px 0 40px 0;
 }
 
-aside > nav > ul > li {
-    font-weight: bold;
-    padding: 20px 40px 20px 40px;
-}
-
-aside > nav > ul > li:hover {
-    background-color: var(--sidebar-hover-color);
-    cursor: pointer;
-}
 
 aside > nav > ul > li > a {
     display: flex;
+    font-weight: bold;
+    padding: 20px 40px 20px 40px;
     font-size: 16px;
     text-transform: uppercase;
     color: var(--text-default-color);
+}
+
+aside > nav > ul > li > a:hover {
+    background-color: var(--sidebar-hover-color);
+    cursor: pointer;
 }
 
 aside > nav > ul > li > a > img {
@@ -181,6 +180,10 @@ aside > nav > ul > li > a > img {
     background-color: var(--warningButtonHover-bg-color);
 }
 
+button:disabled, input[type="submit"]:disabled {
+    opacity: 0.5;
+}
+
 /** INPUT FIELDS **/
 .defaultInput {
     padding: 7px 0px 7px 10px;
@@ -189,42 +192,42 @@ aside > nav > ul > li > a > img {
 
 /** FORM CREATE BATCH **/
 #formCreateBatch {
-    margin: 20px 0 20px 0;
+    margin: 20px 10px 20px 20px;
 }
 
 #formCreateBatch input[type=text] {
     width: 100%;
     max-width: 110px;
+    margin-bottom: 15px;
 }
 
 #formCreateBatch input[type=radio] {
     margin-left: 5px;
-}
-
-#lbAutoMachineSpeed, #lbAutoBatchId {
-    margin-left: 5px;
+    margin-bottom: 15px;
 }
 
 #formCreateBatch select {
     width: 100%;
     max-width: 120px;
+    margin-bottom: 15px;
 }
 
-/** CURRENT BATCH REPORT **/
-#report {
-    margin: 20px 0 20px 0;
+#lbAutoMachineSpeed, #lbAutoBatchId {
+    margin-left: 5px;
+    margin-bottom: 15px;
 }
 
-#report .innerContentBox {
-    background-color: var( --main-bg-color) ;
-    border-radius: 8px;
-    padding: 20px 60px 20px 20px;
-    margin-bottom: 20px;
+#formCreateBatch > label {
+    margin-bottom: 5px;
 }
 
-#report .innerContentBox li {
-    margin: 7px 0 7px 0;
-    font-size: 16px;
+/** OPERATIONS **/
+#operations {
+    margin: 20px 20px 20px 10px;
+}
+
+#operations h2 {
+    margin: 0;
 }
 
 /** REALTIME VISUALIZATION **/
@@ -271,8 +274,33 @@ aside > nav > ul > li > a > img {
     width: 16px;
 }
 
+#searchDropdown {
+    background-color: var(--main-bg-color);
+    position: absolute;
+    top: 52px;
+    width: 100%;
+    max-width: 260px;
+    margin-right: 46px;
+}
+
+#searchDropdown > a > p {
+    border: 1px solid var(--defaultButton-bg-color);
+    padding: 10px 0 10px 10px;
+}
+
+#searchDropdown > a > p:hover {
+    background-color: var(--sidebar-hover-color);
+    cursor: pointer;
+}
+
 /** DATE TIME **/
 #dateTime {
     font-style: italic;
+}
+
+/** SERVER CONNECTIVITY **/
+#btnServerConnectivity img {
+    width: 20px;
+    margin-right: 10px;
 }
 

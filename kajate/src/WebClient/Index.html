@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Kajate | MES</title>
+        <script src="scripts/jquery-3.5.1.js"></script>
         <link rel="stylesheet" href="stylesheets/variables.css">
         <link rel="stylesheet" href="stylesheets/style.css">
     </head>
@@ -9,10 +10,12 @@
         <!--TOP HEADER-->
         <header>
             <div class="wrapper flexDirectionRow flexSpaceEvenly flexWrap">
+                <button id="btnServerConnectivity" class="buttonDefault flexDirectionRow flexCenterSingleRow">Check Server Connectivity</button>
                 <p id="dateTime" class="flexDirectionRow flexCenterSingleRow">12:45 30-10-2020</p>
                 <div id="searchBar" class="flexDirectionRow flexRight flexSize1">
-                    <input class="defaultInput" type="text" placeholder="Search batch products...">
-                    <button class="flexDirectionRow flexCenterSingleRow"><img src="images/icons/search-icon.png"></button>
+                    <input id="tfSearch" class="defaultInput" type="text" placeholder="Search batch id...">
+                    <button id="btnSearch" class="flexDirectionRow flexCenterSingleRow" disabled><img src="images/icons/search-icon.png"></button>
+                    <div id="searchDropdown"></div>
                 </div>
             </div>
         </header>
@@ -20,23 +23,21 @@
             <!--SIDEBAR-->
             <aside class="flexSize1 flexDirectionColumn">
                 <div class="flexDirectionRow flexCenterMultipleRows" id="logoContainer">
-                    <img src="./images/logo-web.png">
+                    <a href="Index.html"><img src="./images/logo-web.png"></a>
                 </div>
                 <nav>
                     <ul>
-                    <li><a href="./Index.html"><img src="images/icons/dashboard-icon.png">Dashboard</a></li>
-                    <li><a href="./BatchReport.html"><img src="images/icons/batch-report-icon.png"> Batch reports</a></li>
-                    <li><a href="./StatisticalAnalysis.html"><img src="images/icons/statistical analysis-icon.png">Statistical Analysis</a></li>
-                    <li><a href="./DatabaseContents.html"><img src="images/icons/database-icon.png">Database Contents</a></li>
-                    <li><a href="./CheckServers.html"><img src="images/icons/server-icon.png">Check Servers</a></li>
+                        <li><a class="flexDirectionRow flexLeft" href="./Index.html"><img src="images/icons/dashboard-icon.png">Dashboard</a></li>
+                        <li><a class="flexDirectionRow flexLeft" href="./BatchReport.html"><img src="images/icons/batch-report-icon.png"> Batch reports</a></li>
+                        <li><a class="flexDirectionRow flexLeft"href="./StatisticalAnalysis.html"><img src="images/icons/statistical analysis-icon.png">Statistical Analysis</a></li>
                     </ul>
                 </nav>
             </aside>
             <!--DASHBOARD BOXES-->
             <div class="flexSize2">
-                <div class="flexDirectionRow flexWrap flexSpaceEvenly">
+                <div class="flexDirectionRow flexWrap">
                     <!--CREATE BATCH-->
-                    <form class="containerBox flexDirectionColumn flexSpaceBetween" id="formCreateBatch" action="http://localhost:3000/form_data" method="post" target="_blank">
+                    <form class="containerBox flexDirectionColumn" id="formCreateBatch" action="http://localhost:3000/form_data" method="post" target="_blank">
                         <h2 class="flexDirectionRow flexCenterSingleRow">Create Batch</h2>
                         <label>Batch ID</label>
                         <div class="flexDirectionRow flexLeft">
@@ -61,25 +62,17 @@
                             <input type="radio" id="autoMachineSpeed" value="auto">
                             <label id="lbAutoMachineSpeed">Auto</label>
                         </div>        
-                        <span class="flexDirectionRow flexCenterSingleRow"><input class="buttonDefault buttonSuccess" type="submit" id="btnStart" value="Start"></span>
+                        <span class="flexDirectionRow flexCenterSingleRow"><input class="buttonDefault buttonSuccess" type="submit" id="btnStart" value="Start" disabled="disabled"></span>
                     </form>
-                    <!--CURRENT BATCH REPORT-->
-                    <div class="containerBox" id="report">
-                        <h2 class="flexDirectionRow flexCenterSingleRow">Current Batch Report</h2>
-                        <div class="innerContentBox">
-                            <li>Batch id: <span id="spanBatchId">0</span></li>
-                            <li>Beer type: <span id="spanProductId">0</span></li>
-                            <li>Amount to produce: <span id="spanAmountId">0</li></span></li>
-                            <li>&nbsp;&nbsp;&nbsp;&nbsp; Defect products: <span id="spanDefectID">0</li></span></li>
-                            <li>&nbsp;&nbsp;&nbsp;&nbsp; Acceptable products: <span id="spanAcceptableId">0</li></span></li>
-                            <li>Produced: <span id="spanProducedId">0</span></li>
-                            <li>Machine speed: <span id="spanSpeedId">0</span></li>
-                            <li>Total production time: <span id="spanProductionTimeId">0</li></span></li>
-                            <li>Estimated temperature: <span id="spanEstimatedTemperatureId">0</li></span></li>
-                            <li>Estimated Humidity: <span id="spanEstimatedHumiditytId">0</li> </span></li>
-                            <li>Overall Equipment Effectiveness: <span id="spanEquipmentId">0</li> </span></li>
+                    <!--OPERATIONS-->
+                    <div class="containerBox flexDirectionColumn" id="operations">
+                        <h2 class="flexDirectionRow flexCenterSingleRow">Operations</h2>
+                        <div class="flexSize1 flexDirectionColumn flexSpaceEvenly">
+                            <button class="buttonDefault buttonWarning" id="btnStop" disabled>Stop</button>
+                            <button class="buttonDefault buttonWarning" id="btnReset" disabled>Reset</button>
+                            <button class="buttonDefault buttonWarning" id="btnClear" disabled>Clear</button>
+                            <button class="buttonDefault buttonWarning" id="btnAbort" disabled>Abort</button>
                         </div>
-                        <span class="flexDirectionRow flexCenterSingleRow"><button class="buttonDefault buttonSuccess" id="btnSave">Save As PDF</span>
                     </div>
                     <!-- REALTIME VISUALIZATION BOXES -->
                     <div class="containerBox" id="realtimeVisualization">
@@ -149,12 +142,6 @@
                                 <p id="pDefectProducts">0.0</p>
                             </div>
                         </div>       
-                        <div class="flexDirectionRow flexCenterSingleRow">
-                            <button class="buttonDefault buttonWarning" id="btnStop">Stop</button>
-                            <button class="buttonDefault buttonWarning" id="btnReset">Reset</button>
-                            <button class="buttonDefault buttonWarning" id="btnClear">Clear</button>
-                            <button class="buttonDefault buttonWarning" id="btnAbort">Abort</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -167,7 +154,7 @@
             </div>
         </footer>
         <!-- SCRIPT -->
-        <script src="scripts/script.js"></script>
+        <script src="scripts/main.js"></script>
     </body>
 </html>
 
