@@ -64,7 +64,7 @@ app.put("/opcua_data", (request, response) => {
 // Run jar function
 let runJar = (jarFileName) => {
     var exec = require('child_process').exec, child;
-    child = exec("java -jar ./Jars/" + jarFileName + ".jar",
+    child = exec("java -jar ./jars/" + jarFileName + ".jar",
     function (error, stdout, stderr){
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);

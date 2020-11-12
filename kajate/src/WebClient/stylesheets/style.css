@@ -144,6 +144,7 @@ aside > nav > ul > li > a > img {
     background-color: var(--contentBoxes-bg-color);
     border-radius: 8px;
     padding: 20px;
+    margin: 20px 0 0px 20px;
 }
 
 .containerBox h2 {
@@ -191,10 +192,6 @@ button:disabled, input[type="submit"]:disabled {
 }
 
 /** FORM CREATE BATCH **/
-#formCreateBatch {
-    margin: 20px 10px 20px 20px;
-}
-
 #formCreateBatch input[type=text] {
     width: 100%;
     max-width: 110px;
@@ -222,17 +219,13 @@ button:disabled, input[type="submit"]:disabled {
 }
 
 /** OPERATIONS **/
-#operations {
-    margin: 20px 20px 20px 10px;
-}
-
 #operations h2 {
     margin: 0;
 }
 
 /** REALTIME VISUALIZATION **/
 #realtimeVisualization {
-    margin: 0 20px 20px 20px;
+    margin-bottom: 20px;
 }
 
 #rtvBox {
@@ -298,9 +291,28 @@ button:disabled, input[type="submit"]:disabled {
     font-style: italic;
 }
 
-/** SERVER CONNECTIVITY **/
+/** SERVER AVAILABLE **/
 #btnServerConnectivity img {
     width: 20px;
     margin-right: 10px;
 }
 
+/** SINGLE BATCH REPORT **/
+#singleBatch h3 {
+    margin: 20px 0 10px 0;
+}
+
+#singleBatch p {
+    margin: 15px 0 15px 0;
+}
+
+#singleBatch ul {
+    background-color: #ffffff;
+    padding: 16px;
+    margin: 0 5px 20px 0;
+    border-radius: 8px;
+}
+
+#singleBatch li {
+    font-size: 12px;
+}
