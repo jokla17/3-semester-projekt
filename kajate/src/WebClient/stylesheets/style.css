@@ -298,21 +298,39 @@ button:disabled, input[type="submit"]:disabled {
 }
 
 /** SINGLE BATCH REPORT **/
+#singleBatch {
+    margin-bottom: 20px;
+}
+
 #singleBatch h3 {
     margin: 20px 0 10px 0;
 }
 
-#singleBatch p {
-    margin: 15px 0 15px 0;
-}
 
-#singleBatch ul {
-    background-color: #ffffff;
-    padding: 16px;
-    margin: 0 5px 20px 0;
+#singleBatchHeader {
+    background-color: var(--innerContentBoxes-bg-color);
+    padding: 20px;
     border-radius: 8px;
+    margin-bottom: 20px;
 }
 
-#singleBatch li {
+#singleBatchHeader p {
+    margin: 10px 0 10px 0;
+}
+
+#singleBatchLogs {
+    margin-top: 20px;
+}
+
+#singleBatchLogs ul {
+    background-color: var(--innerContentBoxes-bg-color);
+    padding: 20px;
+    margin: 0 10px 20px 0;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 140px;
+}
+
+#singleBatchLogs li {
     font-size: 12px;
 }

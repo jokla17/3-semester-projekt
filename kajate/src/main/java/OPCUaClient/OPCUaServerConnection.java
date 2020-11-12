@@ -169,7 +169,6 @@ public class OPCUaServerConnection {
 
     private void subscribeToEndpoint(String identifier){
         try {
-        Thread.sleep(1000);
         // Node to subscribe to and what to read
         NodeId nodeId = new NodeId(6, identifier);
         ReadValueId readValueId = new ReadValueId(nodeId, AttributeId.Value.uid(), null, null);
@@ -201,7 +200,11 @@ public class OPCUaServerConnection {
     }
 
     private static void onSubscriptionValue(UaMonitoredItem item, DataValue value) {
+        Gson gson = new Gson();
+        JsonObject jobj = gson.fromJson(WebRequestHandler.getInstance().getRequest(), JsonObject.class);
+
         // One time values in map
+        getInstance().dataset.put("ProductType", (int) jobj.get("slProductType").getAsFloat());
         getInstance().dataset.put("CurSpeed", getInstance().readEndPoint(getInstance().statusTags.get("CurSpeed")));
         getInstance().dataset.put("Speed", getInstance().readEndPoint(getInstance().statusTags.get("Speed")));
         getInstance().dataset.put("BatchId", getInstance().readEndPoint(getInstance().statusTags.get("BatchId")));
@@ -218,6 +221,7 @@ public class OPCUaServerConnection {
 
         // Print into java console
         System.out.println("Subscription value received: item=" + item.getReadValueId().getNodeId() + ", value=" + value.getValue());
+        System.out.println("ProductType: " + getInstance().dataset.get("ProductType"));
         System.out.println("CurSpeed: " + getInstance().dataset.get("CurSpeed"));
         System.out.println("Speed: " + getInstance().dataset.get("Speed"));
         System.out.println("BatchId: " + getInstance().dataset.get("BatchId"));

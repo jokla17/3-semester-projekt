@@ -50,7 +50,11 @@ app.post("/form_data", (request, response) => {
 });
 
 app.post("/search", (request, response) => {
-    dbmanager.selectSpecificData(request.body.BatchId, (callback) => response.send(callback));
+    if (request.body.BatchId != 0) {
+        dbmanager.selectSpecificData(request.body.BatchId, (callback) => response.send(callback));
+        return;
+    }
+    dbmanager.selectAllData((callback) => response.send(callback));
 });
 
 // Put request handlers
