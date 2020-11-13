@@ -53,6 +53,14 @@ app.post("/form_data", (request, response) => {
     runJar("StartProduction");
 });
 
+app.post("/search", (request, response) => {
+    if (request.body.BatchId != 0) {
+        dbmanager.selectSpecificData(request.body.BatchId, (callback) => response.send(callback));
+        return;
+    }
+    dbmanager.selectAllData((callback) => response.send(callback));
+});
+
 // Put request handlers
 app.put("/opcua_data", (request, response) => {
     response.send("RECEIVED PUT REQUEST");
@@ -61,15 +69,10 @@ app.put("/opcua_data", (request, response) => {
     dbmanager.updateData(opcuaData);
 });
     
-console.log("\n---------------------------------------")
-console.log("WebServer is running...\nListens on requests sent to the server on port 3000...")
-console.log("---------------------------------------\n");
-app.listen(3000);
-
 // Run jar function
 let runJar = (jarFileName) => {
     var exec = require('child_process').exec, child;
-    child = exec("java -jar ./Jars/" + jarFileName + ".jar",
+    child = exec("java -jar ./jars/" + jarFileName + ".jar",
     function (error, stdout, stderr){
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
@@ -79,4 +82,8 @@ let runJar = (jarFileName) => {
     }); 
 }   
 
+console.log("\n---------------------------------------")
+console.log("WebServer is running...\nListens on requests sent to the server on port 3000...")
+console.log("---------------------------------------\n");
+app.listen(3000);
 

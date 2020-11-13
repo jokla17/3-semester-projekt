@@ -3,7 +3,7 @@ let url = "mongodb://localhost:27017/kajatedb";
 
 // Create database and collection
 exports.initalizeDatabase = () => {
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url, {useUnifiedTopology: true}, function(err, db) {
       if (err) throw err;
       console.log("Database created!");
 
@@ -18,7 +18,7 @@ exports.initalizeDatabase = () => {
 
 // Insert or update data
 exports.updateData = (jsonObject) => {
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url, {useUnifiedTopology: true}, function(err, db) {
       let dbo = db.db("kajatedb");
       
       // Query to check if particular property exists.
@@ -43,25 +43,28 @@ exports.updateData = (jsonObject) => {
   }); 
 }
 
-/*MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("kajatedb");
-  var query = { BatchId: 1 };
-  dbo.collection("batch_reports").find(query).toArray(function(err, result) {
+// Select all
+exports.selectAllData = (callback) => {
+  MongoClient.connect(url, {useUnifiedTopology: true},function(err, db) {
     if (err) throw err;
-    console.log(result);
-    db.close();
+    var dbo = db.db("kajatedb");
+    dbo.collection("batch_reports").find({}).toArray(function(err, result) {
+      if (err) throw err;
+      db.close();
+      return callback(result);
+    });
   });
-});
-*/
+}
 
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("kajatedb");
-  dbo.collection("batch_reports").find({}).toArray(function(err, result) {
+// Select one
+exports.selectSpecificData = (search, callback) => {
+  MongoClient.connect(url, {useUnifiedTopology: true}, function(err, db) {
     if (err) throw err;
-    console.log(result);
-    db.close();
-  });
-});
-
+    var dbo = db.db("kajatedb");
+    dbo.collection("batch_reports").findOne({BatchId : search}, function(err, result) {
+      if (err) throw err;
+      db.close();
+      return callback(result);
+    });
+  });  
+}
