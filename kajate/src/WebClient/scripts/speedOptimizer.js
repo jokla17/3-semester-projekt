@@ -1,6 +1,5 @@
 let speedOptimizer = () => {
     let beerType = document.getElementById("slProductType").value;
-    console.log(beerType);
     switch (beerType) {
         case "0":
             document.getElementById("tfMachineSpeed").value = 300;
