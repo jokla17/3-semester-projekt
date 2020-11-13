@@ -41,6 +41,10 @@ app.get("/opcua_data", (request, response) => {
     response.send(opcuaData);
 });
 
+app.get("/batches", (request, response) => {
+    dbmanager.selectAllData((callback) => response.send(callback));
+});
+
 // Post request handlers
 app.post("/form_data", (request, response) => { 
     response.send("RECEIVED POST REQUEST");

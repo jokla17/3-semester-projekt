@@ -2,116 +2,131 @@
 <html>
 
 <head>
-    <title>All Batch Reports</title>
-    <link rel="stylesheet" href="stylesheets/variables.css">
-    <link rel="stylesheet" href="stylesheets/style.css">
+  <title>All Batch Reports</title>
+  <link rel="stylesheet" href="stylesheets/variables.css">
+  <link rel="stylesheet" href="stylesheets/style.css">
 </head>
 
 <body class="flexDirectionColumn">
-    <!--TOP HEADER-->
-    <header>
-        <div class="wrapper flexDirectionRow flexSpaceEvenly flexWrap">
-            <p id="dateTime" class="flexDirectionRow flexCenterSingleRow">12:45 30-10-2020</p>
-            <div id="searchBar" class="flexDirectionRow flexRight flexSize1">
-                <input class="defaultInput" type="text" placeholder="Search batch products...">
-                <button class="flexDirectionRow flexCenterSingleRow"><img src="images/icons/search-icon.png"></button>
-            </div>
-        </div>
-    </header>
-    <div class="wrapper flexDirectionRow flexSize1 flexWrap">
-        <!--SIDEBAR-->
-        <aside class="flexSize1 flexDirectionColumn">
-            <div class="flexDirectionRow flexCenterMultipleRows" id="logoContainer">
-                <img src="./images/logo-web.png">
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="./Index.html"><img src="images/icons/dashboard-icon.png">Dashboard</a></li>
-                    <li><a href="./BatchReport.html"><img src="images/icons/batch-report-icon.png"> Batch reports</a></li>
-                    <li><a href="./StatisticalAnalysis.html"><img src="images/icons/statistical analysis-icon.png">Statistical Analysis</a></li>
-                    <li><a href="./DatabaseContents.html"><img src="images/icons/database-icon.png">Database Contents</a></li>
-                    <li><a href="./CheckServers.html"><img src="images/icons/server-icon.png">Check Servers</a></li>
-                </ul>
-            </nav>
-        </aside>
-        <!--DASHBOARD BOXES-->
-        <div class="flexSize2">
-            <div class="flex">
-                 <!--CURRENT BATCH REPORT-->
-                 <div class="containerBox" id="report">
-                    <h2 class="flex">Current Batch Report</h2>
-                    <style>
-                        table {
-                          font-family: arial, sans-serif;
-                          border-collapse: collapse;
-                          width: 100%;
-                        }
-                        
-                        td, th {
-                          border: 1px solid #dddddd;
-                          text-align: left;
-                          padding: 8px;
-                        }
-                        
-                        tr:nth-child(even) {
-                          background-color: #dddddd;
-                        }
-                        </style>
-                    <table>
-                        <tr>
-                          <th>Batch ID</th>
-                          <th>Beer Type</th>
-                          <th>Amount Produced</th>
-                          <th>Overall Equipment Effectiveness</th>
-                        </tr>
-                        <tr>
-                          <td>d</td>
-                          <td>Pilsner</td>
-                          <td>0</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Wheat</td>
-                          <td>10</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>Pilsner</td>
-                          <td>30</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>Stout</td>
-                          <td>45</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>5</td>
-                          <td>Ale</td>
-                          <td>124</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>6</td>
-                          <td>IPA</td>
-                          <td>Alcohol-free(Ulovligheder)</td>
-                          <td>0</td>
-                        </tr>
-                      </table>
-                    <span class="flex"><button class="buttonDefault buttonSuccess" id="btnSave">Save As PDF</span>
-                </div>
-            </div>
-        </div>
+  <!--TOP HEADER-->
+  <header>
+    <div class="wrapper flexDirectionRow flexSpaceEvenly flexWrap">
+      <p id="dateTime" class="flexDirectionRow flexCenterSingleRow">12:45 30-10-2020</p>
+      <div id="searchBar" class="flexDirectionRow flexRight flexSize1">
+        <input class="defaultInput" type="text" placeholder="Search batch products...">
+        <button class="flexDirectionRow flexCenterSingleRow"><img src="images/icons/search-icon.png"></button>
+      </div>
     </div>
-        <!-- FOOTER -->
-        <footer>
-            <div class="wrapper flexCenterSingleRow flexSpaceEvenly">
-                <p>Human Machine Interface developed by group 5: <br> Jonas Svane, Arem Dogan, Emma Johanne Bovtrup, Andreas Schmidt Tembjerg <br>
-                    Karthikan Vimalarasan, Wahid Tobias Winberg Razzaghi</p>
-        <!-- SCRIPT -->
-        <script src="scripts/script.js"></script>
-    </body>
+  </header>
+  <div class="wrapper flexDirectionRow flexSize1 flexWrap">
+    <!--SIDEBAR-->
+    <aside class="flexSize1 flexDirectionColumn">
+      <div class="flexDirectionRow flexCenterMultipleRows" id="logoContainer">
+        <img src="./images/logo-web.png">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="./Index.html"><img src="images/icons/dashboard-icon.png">Dashboard</a></li>
+          <li><a href="./BatchReport.html"><img src="images/icons/batch-report-icon.png"> Batch reports</a></li>
+          <li><a href="./StatisticalAnalysis.html"><img src="images/icons/statistical analysis-icon.png">Statistical
+              Analysis</a></li>
+          <li><a href="./DatabaseContents.html"><img src="images/icons/database-icon.png">Database Contents</a></li>
+          <li><a href="./CheckServers.html"><img src="images/icons/server-icon.png">Check Servers</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <!--DASHBOARD BOXES-->
+    <div class="flexSize2">
+      <div class="flex">
+        <!--CURRENT BATCH REPORT-->
+        <div class="containerBox" id="report">
+          <h2 class="flex">Current Batch Report</h2>
+          <style>
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+
+            td,
+            th {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+
+            tr:nth-child(even) {
+              background-color: #dddddd;
+            }
+          </style>
+          <table>
+            <tr>
+              <th>Batch ID</th>
+              <th>Beer Type</th>
+              <th>Amount Produced</th>
+              <th>Overall Equipment Effectiveness</th>
+            </tr>
+            <tr>
+              <td id="test"></td>
+              <td id="test2"></td>
+              <td id="test3"></td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Wheat</td>
+              <td>10</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Pilsner</td>
+              <td>30</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Stout</td>
+              <td>45</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Ale</td>
+              <td>124</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>IPA</td>
+              <td>Alcohol-free(Ulovligheder)</td>
+              <td>0</td>
+            </tr>
+          </table>
+          <span class="flex"><button class="buttonDefault buttonSuccess" id="btnSave">Save As PDF</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrapper flexCenterSingleRow flexSpaceEvenly">
+      <p>Human Machine Interface developed by group 5: <br> Jonas Svane, Arem Dogan, Emma Johanne Bovtrup, Andreas
+        Schmidt Tembjerg <br>
+        Karthikan Vimalarasan, Wahid Tobias Winberg Razzaghi</p>
+      <!-- SCRIPT -->
+      <script src="scripts/script.js"></script>
+      <script>
+        fetch("http://localhost:3000/batches")
+          .then(response => response.json())
+          .then(json => {
+            document.getElementById("test").innerText = json[1].BatchId;
+            document.getElementById("test2").innerText = json[1].ProductType;
+            document.getElementById("test3").innerText = json[1].Products;
+          });
+
+
+      </script>
+</body>
+
 </html>
