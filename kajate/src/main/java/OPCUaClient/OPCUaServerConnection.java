@@ -167,6 +167,12 @@ public class OPCUaServerConnection {
         }
     }
 
+    // Wait time
+    String responseTest = WebRequestHandler.getInstance().getRequest();
+    Gson gsonTest = new Gson();
+    JsonObject speed = gsonTest.fromJson(responseTest, JsonObject.class);
+    double timeSpent = 0;
+
     private void subscribeToEndpoint(String identifier){
         try {
         // Node to subscribe to and what to read
@@ -190,13 +196,13 @@ public class OPCUaServerConnection {
             }
         }
         
-        Thread.sleep(30000);
-        //Thread.sleep(Math.round((float) getInstance().getParameters()[4]) / 60 * 1000); // Sleep (1500 is 1.5 sec)
+        timeSpent = ((readEndPoint(statusTags.get("Products"))/speed.get("tfMachineSpeed").getAsFloat())*60000)+6000;
+        Thread.sleep((long)timeSpent);
+
         subscription.deleteMonitoredItems(items);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
     }
 
     private static void onSubscriptionValue(UaMonitoredItem item, DataValue value) {
@@ -209,6 +215,9 @@ public class OPCUaServerConnection {
         getInstance().dataset.put("Speed", getInstance().readEndPoint(getInstance().statusTags.get("Speed")));
         getInstance().dataset.put("BatchId", getInstance().readEndPoint(getInstance().statusTags.get("BatchId")));
         getInstance().dataset.put("Products", getInstance().readEndPoint(getInstance().statusTags.get("Products")));
+        getInstance().dataset.put("TimeSpent", getInstance().timeSpent);
+        getInstance().dataset.put("OEE", getInstance().OEECalculation());
+        getInstance().dataset.put("Error", getInstance().errorCalulation());
 
         // Logging values in map
         String identifier = getInstance().nodeIdMap.get(item.getReadValueId().getNodeId().getIdentifier().toString());
@@ -226,10 +235,30 @@ public class OPCUaServerConnection {
         System.out.println("Speed: " + getInstance().dataset.get("Speed"));
         System.out.println("BatchId: " + getInstance().dataset.get("BatchId"));
         System.out.println("Products: " + getInstance().dataset.get("Products"));
+        System.out.println("TimeSpent: " + getInstance().dataset.get("TimeSpent"));
+        System.out.println("OEE: " + getInstance().dataset.get("OEE"));
+        System.out.println("Error: " + getInstance().dataset.get("Error"));
         System.out.println("Logs: " + getInstance().dataset.get("Logs"));
 
         // Send put request
         WebRequestHandler.getInstance().putRequest(getInstance().dataset);
+    }
+
+    // OEE
+    private double OEECalculation() {
+        float goodCount = getInstance().readEndPoint(statusTags.get("Products")) - (float) (Math.random() * (3 - 1) + 1); 
+        double plannedProductionTime =  (((readEndPoint(statusTags.get("Products")) / speed.get("tfMachineSpeed").getAsFloat())*60000)+3000)/1000;
+        float idealCycleTime = getInstance().readEndPoint(statusTags.get("CurSpeed"));
+        double OEE = ((goodCount * idealCycleTime) / plannedProductionTime);
+        return OEE;
+    }
+    
+    // Error
+    private double errorCalulation() {
+         float goodCount = getInstance().readEndPoint(statusTags.get("Products"))
+         - (float) (Math.random() * (10 - 1) + 1);
+        float errorCalc = (getInstance().readEndPoint(statusTags.get("Products"))-goodCount);
+        return errorCalc;
     }
 
     // Start production
@@ -256,6 +285,7 @@ public class OPCUaServerConnection {
         // Subscribes to the data on ProdProcessedCount
         getInstance().subscribeToEndpoint(adminTags.get("ProdProcessedCount"));
     }
+    
     
     // Stop production
     public void stopProduction(){

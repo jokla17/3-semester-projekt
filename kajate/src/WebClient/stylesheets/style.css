@@ -191,6 +191,10 @@ button:disabled, input[type="submit"]:disabled {
     border-radius: 8px;
 }
 
+input:read-only{
+    opacity: 0.5;
+}
+
 /** FORM CREATE BATCH **/
 #formCreateBatch input[type=text] {
     width: 100%;

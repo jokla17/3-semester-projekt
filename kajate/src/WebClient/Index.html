@@ -41,8 +41,8 @@
                         <h2 class="flexDirectionRow flexCenterSingleRow">Create Batch</h2>
                         <label>Batch ID</label>
                         <div class="flexDirectionRow flexLeft">
-                            <input class="defaultInput" name="tfBatchId" type="text" id="tfBatchId">
-                            <input type="radio" id="autoBatchId" value="auto">
+                            <input class="defaultInput" name="tfBatchId" type="text" id="tfBatchId" readonly="readonly">
+                            <input type="radio" id="autoBatchId" value="auto" checked="checked">
                             <label id="lbAutoBatchId">Auto</label>
                         </div>
                         <label>Product Type</label>
@@ -58,8 +58,8 @@
                         <input class="defaultInput" name="tfProductAmount" type="text" id="tfProductAmount">                                    
                         <label>Machine Speed</label>
                         <div class="flexDirectionRow flexLeft">
-                            <input  class="defaultInput" name="tfMachineSpeed" type="text" id="tfMachineSpeed">    
-                            <input type="radio" id="autoMachineSpeed" value="auto">
+                            <input  class="defaultInput" name="tfMachineSpeed" type="text" id="tfMachineSpeed" readonly="readonly">    
+                            <input type="radio" id="autoMachineSpeed" value="auto" checked="checked">
                             <label id="lbAutoMachineSpeed">Auto</label>
                         </div>        
                         <span class="flexDirectionRow flexCenterSingleRow"><input class="buttonDefault buttonSuccess" type="submit" id="btnStart" value="Start" disabled="disabled"></span>
@@ -157,13 +157,7 @@
         <script src="scripts/webserverAvailable.js"></script>
         <script src="scripts/searchableBatches.js"></script>
         <script src="scripts/dashboardRealization.js"></script>
-        <script>
-            fetch("http://localhost:3000/batches")
-            .then(response => response.json())
-            .then(json => {
-                console.log(json.length);
-            });
-        </script>
+        <script src="scripts/speedOptimizer.js"></script>
     </body>
 </html>
 

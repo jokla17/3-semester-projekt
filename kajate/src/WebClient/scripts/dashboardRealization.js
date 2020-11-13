@@ -1,3 +1,10 @@
+// Update id on load
+fetch("http://localhost:3000/batches")
+.then(response => response.json())
+.then(json => {
+    json.length == 0 ? document.getElementById("tfBatchId").value = 1 : document.getElementById("tfBatchId").value = json[json.length - 1].BatchId + 1;
+});
+
 document.getElementById("btnStop").addEventListener("click", () => {
     fetch("http://localhost:3000/stop_production");
     alert("Production has stopped...");
@@ -23,9 +30,9 @@ function poll(){
     .then(response => response.json())
     .then(json => {
         if (json.Logs != undefined) {
-            document.getElementById("pBatchId").innerText = document.getElementById("tfBatchId").value;
-            document.getElementById("pAmount").innerText = document.getElementById("tfProductAmount").value;
-            document.getElementById("pProductsPerMinute").innerText = document.getElementById("tfMachineSpeed").value;
+            document.getElementById("pBatchId").innerText = json.BatchId;
+            document.getElementById("pAmount").innerText = json.Products;
+            document.getElementById("pProductsPerMinute").innerText = json.Speed;
             document.getElementById("pProduced").innerText = json.Logs.ProdProcessedCount[json.Logs.ProdProcessedCount.length - 1];
             document.getElementById("pHumidity").innerText = json.Logs.Humidity[json.Logs.Humidity.length - 1];
             document.getElementById("pVibration").innerText = json.Logs.Vibration[json.Logs.Vibration.length - 1];
@@ -33,6 +40,15 @@ function poll(){
             document.getElementById("pDefectProducts").innerText = json.Logs.ProdDefectiveCount[json.Logs.ProdDefectiveCount.length - 1];
             document.getElementById("pAcceptableProducts").innerText = json.Logs.ProdProcessedCount[json.Logs.ProdProcessedCount.length - 1] 
             - json.Logs.ProdDefectiveCount[json.Logs.ProdDefectiveCount.length - 1]
+            
+            // If produced equals amount, update id in input
+            if (json.Logs.ProdProcessedCount[json.Logs.ProdProcessedCount.length - 1] == json.Products) {
+                fetch("http://localhost:3000/batches")
+                .then(response => response.json())
+                .then(json => {
+                    document.getElementById("tfBatchId").value = json[json.length - 1].BatchId + 1;
+                });
+            }
         }
     })
     .then(() => setTimeout(poll(), 500))
