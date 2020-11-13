@@ -43,3 +43,25 @@ exports.updateData = (jsonObject) => {
   }); 
 }
 
+/*MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("kajatedb");
+  var query = { BatchId: 1 };
+  dbo.collection("batch_reports").find(query).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });
+});
+*/
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("kajatedb");
+  dbo.collection("batch_reports").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });
+});
+

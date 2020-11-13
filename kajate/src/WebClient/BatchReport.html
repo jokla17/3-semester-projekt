@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Batch Report</title>
+    <title>All Batch Reports</title>
     <link rel="stylesheet" href="stylesheets/variables.css">
     <link rel="stylesheet" href="stylesheets/style.css">
 </head>
@@ -40,19 +40,67 @@
                  <!--CURRENT BATCH REPORT-->
                  <div class="containerBox" id="report">
                     <h2 class="flex">Current Batch Report</h2>
-                    <div class="innerContentBox">
-                        <li>Batch id: <span id="spanBatchId">0</span></li>
-                        <li>Beer type: <span id="spanProductId">0</span></li>
-                        <li>Amount to produce: <span id="spanAmountId">0</li></span></li>
-                        <li>&nbsp;&nbsp;&nbsp;&nbsp; Defect products: <span id="spanDefectID">0</li></span></li>
-                        <li>&nbsp;&nbsp;&nbsp;&nbsp; Acceptable products: <span id="spanAcceptableId">0</li></span></li>
-                        <li>Produced: <span id="spanProducedId">0</span></li>
-                        <li>Machine speed: <span id="spanSpeedId">0</span></li>
-                        <li>Total production time: <span id="spanProductionTimeId">0</li></span></li>
-                        <li>Estimated temperature: <span id="spanEstimatedTemperatureId">0</li></span></li>
-                        <li>Estimated Humidity: <span id="spanEstimatedHumiditytId">0</li> </span></li>
-                        <li>Overall Equipment Effectiveness: <span id="spanEquipmentId">0</li> </span></li>
-                    </div>
+                    <style>
+                        table {
+                          font-family: arial, sans-serif;
+                          border-collapse: collapse;
+                          width: 100%;
+                        }
+                        
+                        td, th {
+                          border: 1px solid #dddddd;
+                          text-align: left;
+                          padding: 8px;
+                        }
+                        
+                        tr:nth-child(even) {
+                          background-color: #dddddd;
+                        }
+                        </style>
+                    <table>
+                        <tr>
+                          <th>Batch ID</th>
+                          <th>Beer Type</th>
+                          <th>Amount Produced</th>
+                          <th>Overall Equipment Effectiveness</th>
+                        </tr>
+                        <tr>
+                          <td>d</td>
+                          <td>Pilsner</td>
+                          <td>0</td>
+                          <td>0</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Wheat</td>
+                          <td>10</td>
+                          <td>0</td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>Pilsner</td>
+                          <td>30</td>
+                          <td>0</td>
+                        </tr>
+                        <tr>
+                          <td>4</td>
+                          <td>Stout</td>
+                          <td>45</td>
+                          <td>0</td>
+                        </tr>
+                        <tr>
+                          <td>5</td>
+                          <td>Ale</td>
+                          <td>124</td>
+                          <td>0</td>
+                        </tr>
+                        <tr>
+                          <td>6</td>
+                          <td>IPA</td>
+                          <td>Alcohol-free(Ulovligheder)</td>
+                          <td>0</td>
+                        </tr>
+                      </table>
                     <span class="flex"><button class="buttonDefault buttonSuccess" id="btnSave">Save As PDF</span>
                 </div>
             </div>

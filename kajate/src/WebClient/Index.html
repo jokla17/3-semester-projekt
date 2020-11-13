@@ -79,7 +79,14 @@
                             <li>Estimated Humidity: <span id="spanEstimatedHumiditytId">0</li> </span></li>
                             <li>Overall Equipment Effectiveness: <span id="spanEquipmentId">0</li> </span></li>
                         </div>
-                        <span class="flexDirectionRow flexCenterSingleRow"><button class="buttonDefault buttonSuccess" id="btnSave">Save As PDF</span>
+                        <span class="flexDirectionRow flexCenterSingleRow"><button onclick="generatePDF()" class="buttonDefault buttonSuccess" id="btnSave">Save As PDF</span>
+                            <!-- Ask Wahid abort how to implement the code-->
+                            <script>
+                                function generatePDF(){
+                                    var doc = new jsPDF();
+                                    doc.save('sample-file.pdf');
+                            }
+                            </script>
                     </div>
                     <!-- REALTIME VISUALIZATION BOXES -->
                     <div class="containerBox" id="realtimeVisualization">
