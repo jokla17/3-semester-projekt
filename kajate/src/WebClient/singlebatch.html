@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kajate | MES</title>
+        <script src="scripts/jquery-3.5.1.js"></script>
+        <link rel="stylesheet" href="stylesheets/variables.css">
+        <link rel="stylesheet" href="stylesheets/style.css">
+    </head>
+    <body class="flexDirectionColumn">
+        <!--TOP HEADER-->
+        <header>
+            <div class="wrapper flexDirectionRow flexSpaceEvenly flexWrap">
+                <button id="btnServerConnectivity" class="buttonDefault flexDirectionRow flexCenterSingleRow">Check Server Connectivity</button>
+                <p id="dateTime" class="flexDirectionRow flexCenterSingleRow">12:45 30-10-2020</p>
+                <div id="searchBar" class="flexDirectionRow flexRight flexSize1">
+                    <input id="tfSearch" class="defaultInput" type="text" placeholder="Search batch id...">
+                    <button id="btnSearch" class="flexDirectionRow flexCenterSingleRow" disabled><img src="images/icons/search-icon.png"></button>
+                    <div id="searchDropdown"></div>
+                </div>
+            </div>
+        </header>
+        <div class="wrapper flexDirectionRow flexSize1 flexWrap">
+            <!--SIDEBAR-->
+            <aside class="flexSize1 flexDirectionColumn">
+                <div class="flexDirectionRow flexCenterMultipleRows" id="logoContainer">
+                    <a href="Index.html"><img src="./images/logo-web.png"></a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a class="flexDirectionRow flexLeft" href="./Index.html"><img src="images/icons/dashboard-icon.png">Dashboard</a></li>
+                        <li><a class="flexDirectionRow flexLeft" href="./BatchReport.html"><img src="images/icons/batch-report-icon.png"> Batch reports</a></li>
+                        <li><a class="flexDirectionRow flexLeft"href="./StatisticalAnalysis.html"><img src="images/icons/statistical analysis-icon.png">Statistical Analysis</a></li>
+                    </ul>
+                </nav>
+            </aside>
+            <!--DASHBOARD BOXES-->
+            <div class="flexSize2">
+                <div class="containerBox" id="singleBatch"></div>
+            </div>
+        </div>
+        <!-- FOOTER -->
+        <footer>
+            <div class="wrapper flexCenterSingleRow">
+                <p>Human Machine Interface developed by group 5: <br> Jonas Svane, Arem Dogan, Emma Johanne Bovtrup, Andreas Schmidt Tembjerg <br>
+                    Karthikan Vimalarasan, Wahid Tobias Winberg Razzaghi</p>
+            </div>
+        </footer>
+        <!-- SCRIPT -->
+        <script src="scripts/webserverAvailable.js"></script>
+        <script src="scripts/searchableBatches.js"></script>
+    </body>
+</html>
+
