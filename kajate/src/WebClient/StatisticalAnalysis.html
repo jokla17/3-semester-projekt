@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="stylesheets/variables.css">
     <link rel="stylesheet" href="stylesheets/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-    <script src="kajate\src\WebClient\scripts\statisticalAnalysisScripts.js"></script>
 </head>
 
 <body class="flexDirectionColumn">
@@ -41,18 +40,63 @@
         </aside>
         <!--DASHBOARD BOXES-->
         <div class="flexSize2">
-            <div class="flexDirectionRow flexWrap flexSpaceEvenly">
-                <h1>Results of playing with Chart.js</h1>
-                <canvas id="myChart" width="400" height="400"></canvas>
+            <div class=" flexWrap flexSpaceEvenly">
+                <!-- 
+                    Two charts - hardcoded as line: produced over time, bar: totalProduced, defectiveProduced and acceptableProduced, 
+                -->
+
+                <h2 style="text-align: center;">Statistical analysis of productions</h2><br>
+                <div style="padding-left: 40px;">
+                    <form action="http://localhost:3000/search" method="post" target="_blank">
+                        <label for="BatchId">Enter the Batch-ID for the production: </label><br><br>
+                        <input type="number" id="BatchId" name="BatchId" style="padding-right: 20px;">
+                        <input id="btnSubmit" type="submit" value="Submit" class="buttonDefault buttonSuccess">
+                    </form>
+                    <script>
+
+                    </script>
+                </div> <br>
+                <div>
+                    <h3 style="text-align: center;">Total, defect and acceptable products</h3>
+                    <canvas id="productsChart" width="400" height="400"></canvas>
+                </div>
+                <div>
+                    <h3 style="text-align: center;">Produced products over time</h3>
+                    <canvas id="prodProcessedChart" width="400" height="400"></canvas>
+                </div>
+                <div>
+                    <h3 style="text-align: center;">Time spent in different states</h3>
+                    <canvas id="stateChart" width="400" height="400"></canvas>
+                </div>
                 <script>
-                    const ctx = document.getElementById('myChart');
+                    let logData = 0;
+
+                    //associate submit-button with a request to the DB
+                    document.getElementById("btnSubmit").addEventListener("click",() => {
+                        fetch("http://localhost:3000/search", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: '{"BatchId" : ' + document.getElementById("BatchId").value + '}'
+                        })
+                            .then(response => response.json())
+                            .then(json => {
+                                logData = json;
+                                console.log(logData.Logs.Humidity);
+                            });
+                        });
+                    
+                    //bar chart
+                    let data = [3, 5, 1]; //insert "data" variable here in the future
+                    const ctx = document.getElementById('productsChart');
                     const myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: ['Wahid', 'Emma', 'Jonas', 'Karthi', 'Andreas', 'Arem'],
+                            labels: ['Produced', 'Defect Products', 'Acceptable products'],
                             datasets: [{
-                                label: 'Indsats fra 1-10',
-                                data: [11, 10, 2, 10, 9, 10],
+                                label: 'Amount of beer',
+                                data: data,
                                 backgroundColor: [
                                     'rgba(13, 255, 0, 0.5)',
                                     'rgba(242, 0, 255, 0.5)',
@@ -69,7 +113,7 @@
                                     'rgba(153, 102, 255, 1)',
                                     'rgba(255, 159, 64, 1)'
                                 ],
-                                borderWidth: 1
+                                borderWidth: 0
                             }]
                         },
                         options: {
@@ -80,6 +124,59 @@
                                     }
                                 }]
                             }
+                        }
+                    });
+
+                    //line chart
+                    let ddata = [/* Get "produced, "defective" and "acceptable" from certain batch in DB */];
+                    const prodElem = document.getElementById('prodProcessedChart');
+                    const lineChart = new Chart(prodElem, {
+                        type: 'line',
+                        data: {
+                            labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                            datasets: [{
+                                label: "Totalt products over time",
+                                data: [0, 2, 1, 6, 4, 5, 3, 1, 0], //insert "ddata" variable here in the future
+                                backgroundColor: "rgba(13, 255, 0, 0.5)",
+                                lineTension: 0.2
+                            }]
+                        },
+                        options: {
+
+                        }
+                    });
+
+                    //radar chart
+                    let dddata = [/* Get log over machine states */];
+                    const stateElem = document.getElementById("stateChart");
+                    const stateChart = new Chart(stateElem, {
+                        type: 'pie',
+                        data: {
+                            labels: ["Deactivated", "Clearing", "Stopped", "Starting", "Idle", "Suspended", "Execute", "Stopping", "Aborting", "Aborted", "Holding", "Held", "Resetting", "Completing", "Complete", "Deactivating", "Activating"],
+                            datasets: [{
+                                label: "Time spent in different machine states",
+                                data: [100, 40, 30, 5, 45, 23, 90, 50, 30, 10, 5, 15, 60, 70, 5, 12, 51], //insert "dddata" variable here in the future
+                                backgroundColor: [
+                                    'rgba(255, 0, 0, 0.5)',
+                                    'rgba(0, 255, 0, 0.5)',
+                                    'rgba(0, 0, 255, 0.5)',
+                                    'rgba(255, 255, 0, 0.5)',
+                                    'rgba(0, 255, 255, 0.5)',
+                                    'rgba(255, 0, 255, 0.5)',
+                                    'rgba(125, 10, 125, 0.5)',
+                                    'rgba(125, 0, 0, 0.5)',
+                                    'rgba(0, 125, 0, 0.5)',
+                                    'rgba(0, 0, 125, 0.5)',
+                                    'rgba(120, 255, 54, 0.5)',
+                                    'rgba(50, 0, 130, 0.5)',
+                                    'rgba(125, 125, 0, 0.5)',
+                                    'rgba(125, 0, 125, 0.5)',
+                                    'rgba(0, 125, 125, 0.5)',
+                                    'rgba(87, 255, 87, 0.5)',
+                                    'rgba(255, 87, 87, 0.5)']
+                            }]
+                        },
+                        options: {
                         }
                     });
                 </script>
@@ -93,7 +190,6 @@
                 Schmidt Tembjerg <br>
                 Karthikan Vimalarasan, Wahid Tobias Winberg Razzaghi</p>
             <!-- SCRIPT -->
-            <script src="scripts/script.js"></script>
 
 </body>
 
