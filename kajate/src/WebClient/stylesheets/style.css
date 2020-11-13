@@ -144,7 +144,7 @@ aside > nav > ul > li > a > img {
     background-color: var(--contentBoxes-bg-color);
     border-radius: 8px;
     padding: 20px;
-    margin: 20px 0 0px 20px;
+    margin: 20px 0px 0px 20px;
 }
 
 .containerBox h2 {

@@ -157,6 +157,13 @@
         <script src="scripts/webserverAvailable.js"></script>
         <script src="scripts/searchableBatches.js"></script>
         <script src="scripts/dashboardRealization.js"></script>
+        <script>
+            fetch("http://localhost:3000/batches")
+            .then(response => response.json())
+            .then(json => {
+                console.log(json.length);
+            });
+        </script>
     </body>
 </html>
 
