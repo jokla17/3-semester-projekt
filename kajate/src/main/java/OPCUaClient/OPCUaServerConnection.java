@@ -25,11 +25,12 @@ import org.eclipse.milo.opcua.stack.core.types.structured.EndpointDescription;
 import org.eclipse.milo.opcua.stack.core.types.structured.MonitoredItemCreateRequest;
 import org.eclipse.milo.opcua.stack.core.types.structured.MonitoringParameters;
 import org.eclipse.milo.opcua.stack.core.types.structured.ReadValueId;
+import org.eclipse.milo.opcua.stack.core.util.EndpointUtil;
 import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.UInteger;
 import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned;
 
 public class OPCUaServerConnection {
-    private String opcServerAddress = "opc.tcp://localhost:4840";
+    private String opcServerAddress = "opc.tcp://localhost:4840"; // opc.tcp://192.168.0.122:4840
     private static AtomicLong clientHandles = new AtomicLong(1L);
 
     // Dataset and log maps
@@ -129,7 +130,9 @@ public class OPCUaServerConnection {
 
         try {
             List<EndpointDescription> endpoints = DiscoveryClient.getEndpoints(opcServerAddress).get();
+            //EndpointDescription configPoint = EndpointUtil.updateUrl(endpoints.get(0), "192.168.0.122", 4840);
             OpcUaClientConfigBuilder cfg = new OpcUaClientConfigBuilder();
+            //cfg.setEndpoint(configPoint);
             cfg.setEndpoint(endpoints.get(0));
             client = OpcUaClient.create(cfg.build());
             client.connect().get();
@@ -246,17 +249,16 @@ public class OPCUaServerConnection {
 
     // OEE
     private double OEECalculation() {
-        float goodCount = getInstance().readEndPoint(statusTags.get("Products")) - (float) (Math.random() * (3 - 1) + 1); 
-        double plannedProductionTime =  (((readEndPoint(statusTags.get("Products")) / speed.get("tfMachineSpeed").getAsFloat())*60000)+3000)/1000;
-        float idealCycleTime = getInstance().readEndPoint(statusTags.get("CurSpeed"));
+        float goodCount = getInstance().readEndPoint(statusTags.get("Products")) - getInstance().readEndPoint(getInstance().adminTags.get("ProdDefectiveCount"));
+        double plannedProductionTime =  (((readEndPoint(statusTags.get("Products")) / speed.get("tfMachineSpeed").getAsFloat())*60000))/1000;
+        float idealCycleTime = 60 / getInstance().readEndPoint(statusTags.get("Speed"));
         double OEE = ((goodCount * idealCycleTime) / plannedProductionTime);
         return OEE;
     }
     
     // Error
     private double errorCalulation() {
-         float goodCount = getInstance().readEndPoint(statusTags.get("Products"))
-         - (float) (Math.random() * (10 - 1) + 1);
+         float goodCount = getInstance().readEndPoint(statusTags.get("Products")) - getInstance().readEndPoint(getInstance().adminTags.get("ProdDefectiveCount"));
         float errorCalc = (getInstance().readEndPoint(statusTags.get("Products"))-goodCount);
         return errorCalc;
     }
