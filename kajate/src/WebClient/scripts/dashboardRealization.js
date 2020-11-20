@@ -1,21 +1,17 @@
 document.getElementById("btnStop").addEventListener("click", () => {
     fetch("http://localhost:3000/stop_production");
-    alert("Production has stopped...");
 });
 
 document.getElementById("btnReset").addEventListener("click", () => {
     fetch("http://localhost:3000/reset_production");
-    alert("Production has reset...");
 });
 
 document.getElementById("btnAbort").addEventListener("click", () => {
     fetch("http://localhost:3000/abort_production");
-    alert("Production has been aborted...");
 });
 
 document.getElementById("btnClear").addEventListener("click", () => {
     fetch("http://localhost:3000/clear_production");
-    alert("Production has been cleared...");
 });
 
 function poll() {

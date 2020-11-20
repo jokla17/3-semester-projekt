@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Statistical Analysis</title>
+        <link rel="stylesheet" href="stylesheets/variables.css">
+        <link rel="stylesheet" href="stylesheets/style.css">
+        <script src="scripts/jquery-3.5.1.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    </head>
+    <body class="flexDirectionColumn">
+        <!--TOP HEADER-->
+        <header>
+            <div class="wrapper flexDirectionRow flexSpaceEvenly flexWrap">
+                <button id="btnServerConnectivity" class="buttonDefault flexDirectionRow flexCenterSingleRow">Check Server Connectivity</button>
+                <p id="dateTime" class="flexDirectionRow flexCenterSingleRow">12:45 30-10-2020</p>
+                <div id="searchBar" class="flexDirectionRow flexRight flexSize1">
+                    <input id="tfSearch" class="defaultInput" type="text" placeholder="Search batch id...">
+                    <button id="btnSearch" class="flexDirectionRow flexCenterSingleRow" disabled><img src="images/icons/search-icon.png"></button>
+                    <div id="searchDropdown"></div>
+                </div>
+            </div>
+        </header>
+        <div class="wrapper flexDirectionRow flexSize1 flexWrap">
+            <!--SIDEBAR-->
+            <aside class="flexSize1 flexDirectionColumn">
+                <div class="flexDirectionRow flexCenterMultipleRows" id="logoContainer">
+                    <a href="index.html"><img src="./images/logo-web.png"></a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a class="flexDirectionRow flexLeft" href="./index.html"><img src="images/icons/dashboard-icon.png">Dashboard</a></li>
+                        <li><a class="flexDirectionRow flexLeft" href="./BatchReports.html"><img src="images/icons/batch-report-icon.png"> Batch reports</a></li>
+                        <li><a class="flexDirectionRow flexLeft"href="./StatisticalAnalysis.html"><img src="images/icons/statistical analysis-icon.png">Statistical Analysis</a></li>
+                    </ul>
+                </nav>
+            </aside>
+            <!--DASHBOARD BOXES-->
+            <div class="flexSize2">
+                <div class=" flexWrap flexSpaceEvenly">
+                    <h2 style="text-align: center;">Statistical analysis of productions</h2><br>
+                    <div style="padding-left: 40px;">
+                        <iframe name="dummyframe" id="dummyframe" style="display:none;"></iframe>
+                        <form action="http://localhost:3000/search" method="post" target="dummyframe">
+                            <label for="BatchId">Enter the Batch-ID for the production: </label><br><br>
+                            <input type="number" id="BatchId" name="BatchId" style="padding-right: 20px;">
+                            <input id="btnSubmit" type="submit" value="Submit" class="buttonDefault buttonSuccess">
+                        </form>
+                    </div> <br>
+                    <div id="productsChartContainer" style="border: 2px solid rgba(0, 0, 0, 0.377); border-radius: 5px;"></div>
+                    <div id="prodProcessedChartContainer" style="border: 2px solid rgba(0, 0, 0, 0.377); border-radius: 5px;"></div>
+                    <div id="stateChartContainer" style="border: 2px solid rgba(0, 0, 0, 0.377); border-radius: 5px;"></div>
+                </div>
+            </div>
+        </div>
+        <!-- FOOTER -->
+        <footer>
+            <div class="wrapper flexCenterSingleRow flexSpaceEvenly">
+                <p>Human Machine Interface developed by group 5: <br> Jonas Svane, Arem Dogan, Emma Johanne Bovtrup, Andreas
+                    Schmidt Tembjerg <br>
+                    Karthikan Vimalarasan, Wahid Tobias Winberg Razzaghi</p>
+                <!-- SCRIPT -->
+                <script src="scripts/webserverAvailable.js"></script>
+                <script src="scripts/searchableBatches.js"></script>
+                <script src="scripts/statisticsScripts.js"></script>
+            </div>
+    </body>
+</html>

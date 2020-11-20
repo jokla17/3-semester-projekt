@@ -265,7 +265,7 @@ public class OPCUaServerConnection {
         float goodCount = getInstance().readEndPoint(statusTags.get("Products")) - getInstance().readEndPoint(getInstance().adminTags.get("ProdDefectiveCount"));
         double plannedProductionTime =  (((readEndPoint(statusTags.get("Products")) / speed.get("tfMachineSpeed").getAsFloat())*60000))/1000;
         float idealCycleTime = 60 / getInstance().readEndPoint(statusTags.get("Speed"));
-        double OEE = ((goodCount * idealCycleTime) / plannedProductionTime);
+        double OEE = ((goodCount * idealCycleTime) / plannedProductionTime) * 100;
         return OEE;
     }
     
