@@ -1,39 +1,35 @@
 $(document).ready(() => {
     
-    let currentPage = 0;
-    let rows_of_page = 10;
+let currentPage = 0; 
+let rows_of_page = 10; 
 
-    function nextPage() {
+let nextPage = () => {
       fetch("http://localhost:3000/batches")
         .then(response => response.json())
         .then(json => {
-          function displayProductType(productType) {
+
+          let displayProductType = (productType) => {
             let pt = "";
-            switch (productType) {
-              case 0:
-                pt = "Pilsner";
-                break;
-
-              case 1:
-                pt = "Wheat";
-                break;
-
-              case 2:
-                pt = "IPA";
-                break;
-
-              case 3:
-                pt = "Stout";
-                break;
-
-              case 4:
-                pt = "Ale";
-                break;
-
-              case 5:
-                pt = "Alcohol-free";
-                break;
-            }
+              switch (productType) {
+                case 0:
+                  pt = "Pilsner";
+                  break;
+                case 1:
+                  pt = "Wheat";
+                  break;
+                case 2:
+                  pt = "IPA";
+                  break;
+                case 3:
+                  pt = "Stout";
+                  break;
+                case 4:
+                  pt = "Ale";
+                  break;
+                case 5:
+                  pt = "Alcohol-free";
+                  break;
+              }
             return pt;
           }
 
@@ -51,19 +47,22 @@ $(document).ready(() => {
         });
     }
 
+  nextPage();
+
+  $("#btnNext").click(() => {
+    $("#batchReportsTable").empty();
+    currentPage = currentPage + 10;
+    rows_of_page = rows_of_page + 10;
     nextPage();
+  });
 
-    $("#btnNext").click(() => {
-      $("#batchReportsTable").empty();
-      currentPage = currentPage + 10;
-      rows_of_page = rows_of_page + 10;
-      nextPage();
-    });
-
-    $("#btnPrevious").click(() => {
-      $("#batchReportsTable").empty();
+  $("#btnPrevious").click(() => {
+    $("#batchReportsTable").empty();
+    if (currentPage != 0) {
       currentPage = currentPage - 10;
       rows_of_page = rows_of_page - 10;
-      nextPage();
-    });
+    }
+    nextPage();
   });
+
+});
