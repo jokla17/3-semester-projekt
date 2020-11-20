@@ -21,7 +21,7 @@ $(document).ready(() => {
                     let url = new URL("http://127.0.0.1:5500/kajate/src/WebClient/singlebatch.html"); 
                     url.searchParams.append('batch_id', json[i].BatchId); 
 
-                    $("#searchDropdown").append("<a href=" + url +"><p>Batch " +  json[i].BatchId + "</p></a>");
+                    $("#searchDropdown").append("<a id=\"lol\" href=" + url +"><p>Batch " +  json[i].BatchId + "</p></a>");
                 }
                 return
             }

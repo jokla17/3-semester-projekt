@@ -35,6 +35,7 @@ let singleBatchContents = () => {
                 case 5: productType = "Alchohol-free"; break;
             }
 
+            $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Date and time:</p><p><i>" + json.DateTime + "</i></p></div>");
             $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Product type:</p><p><i>" + productType + "</i></p></div>");
             $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Processed products:</p><p><i>" + prodProcessedCount + "</i></p></div>");
             $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Acceptable products:</p><p><i>" + (prodProcessedCount - prodDefectiveCount) + "</i></p></div>");
@@ -45,9 +46,11 @@ let singleBatchContents = () => {
             $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Error (Dif. between set amount and acceptable products):</p><p><i>" + json.Error + "</i></p></div>");
 
             // Buttons
+            $("#singleBatch").append("<button id=\"btnShowStates\" class=\"buttonDefault buttonSuccess\">SHOW STATES</button>");
             $("#singleBatch").append("<button id=\"btnShowLogs\"class=\"buttonDefault buttonSuccess\">Show Logs</button>");
             $("#singleBatch").append("<button class=\"buttonDefault buttonSuccess\">SAVE AS PDF</button>");
             $("#btnShowLogs").click(() => { $("#singleBatchLogs").toggle("slow"); });
+            $("#btnShowStates").click(() => { $("#singleBatchStates").toggle("slow"); });
 
             // Logs
             $("#singleBatch").append(("<div id=\"singleBatchLogs\"></div>"));
@@ -74,6 +77,19 @@ let singleBatchContents = () => {
             logResults("Temperature", json.Logs.Temperature);
             logResults("Vibration", json.Logs.Vibration);
             logResults("Humidity", json.Logs.Humidity);
+
+            // State tracker   
+            $("#singleBatch").append("<div id=\"singleBatchStates\" class=\"flexDirectionColumn\"></div>");    
+            $("#singleBatchStates").hide();
+            for (let i = 0; i < json.StateTracker.length; i++) {
+                $("#singleBatchStates").append(
+                    "<ul>" +
+                    "<li class=\"flexDirectionRow flexSpaceBetween\"><p>State: </p><p><i>" + json.StateTracker[i].key  + "</i></p></li>" +
+                    "<li class=\"flexDirectionRow flexSpaceBetween\"><p>Activated: </p><p><i>" + json.StateTracker[i].value.Activated + "</i></p></li>" +
+                    "<li class=\"flexDirectionRow flexSpaceBetween\"><p>Ended: </p><p><i>" + json.StateTracker[i].value.Ended + "</i></p></li>" +
+                    "<li class=\"flexDirectionRow flexSpaceBetween\"><p>Time in state: </p><p><i>" + json.StateTracker[i].value.TimeInState  + " sec</p></li>" +
+                    "</ul>");
+            }
         });
 }
 singleBatchContents();

@@ -1,7 +1,13 @@
 package OPCUaClient;
 
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +31,6 @@ import org.eclipse.milo.opcua.stack.core.types.structured.EndpointDescription;
 import org.eclipse.milo.opcua.stack.core.types.structured.MonitoredItemCreateRequest;
 import org.eclipse.milo.opcua.stack.core.types.structured.MonitoringParameters;
 import org.eclipse.milo.opcua.stack.core.types.structured.ReadValueId;
-import org.eclipse.milo.opcua.stack.core.util.EndpointUtil;
 import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.UInteger;
 import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned;
 
@@ -42,6 +47,8 @@ public class OPCUaServerConnection {
         logs.put("Vibration", new ArrayList<Object>());
         logs.put("ProdDefectiveCount", new ArrayList<Object>());
     };
+
+    private StateTracker stateTracker = new StateTracker();
 
     private OpcUaClient OpcClient = connectToOPCUAServer();
 
@@ -221,7 +228,11 @@ public class OPCUaServerConnection {
         getInstance().dataset.put("TimeSpent", getInstance().timeSpent);
         getInstance().dataset.put("OEE", getInstance().OEECalculation());
         getInstance().dataset.put("Error", getInstance().errorCalulation());
+        getInstance().dataset.put("DateTime", getInstance().currentDate());
 
+        List<Object> list = new ArrayList<Object>(getInstance().stateTracker.trackStates((int) getInstance().readEndPoint(getInstance().statusTags.get("State"))).entrySet());
+        getInstance().dataset.put("StateTracker", list);
+        ;
         // Logging values in map
         String identifier = getInstance().nodeIdMap.get(item.getReadValueId().getNodeId().getIdentifier().toString());
         getInstance().logs.get(identifier).add(value.getValue().getValue());
@@ -242,6 +253,8 @@ public class OPCUaServerConnection {
         System.out.println("OEE: " + getInstance().dataset.get("OEE"));
         System.out.println("Error: " + getInstance().dataset.get("Error"));
         System.out.println("Logs: " + getInstance().dataset.get("Logs"));
+        System.out.println("StateTracker" + getInstance().dataset.get("StateTracker"));
+        System.out.println("DateTime" + getInstance().dataset.get("DateTime"));
 
         // Send put request
         WebRequestHandler.getInstance().putRequest(getInstance().dataset);
@@ -258,10 +271,18 @@ public class OPCUaServerConnection {
     
     // Error
     private double errorCalulation() {
-         float goodCount = getInstance().readEndPoint(statusTags.get("Products")) - getInstance().readEndPoint(getInstance().adminTags.get("ProdDefectiveCount"));
+        float goodCount = getInstance().readEndPoint(statusTags.get("Products")) - getInstance().readEndPoint(getInstance().adminTags.get("ProdDefectiveCount"));
         float errorCalc = (getInstance().readEndPoint(statusTags.get("Products"))-goodCount);
         return errorCalc;
     }
+
+    // Time and date
+    public String currentDate() {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        return formatter.format(date);     
+     }
+
 
     // Start production
     public void startProduction(){

@@ -310,7 +310,6 @@ input:read-only{
     margin: 20px 0 10px 0;
 }
 
-
 #singleBatchHeader {
     background-color: var(--innerContentBoxes-bg-color);
     padding: 20px;
@@ -337,4 +336,17 @@ input:read-only{
 
 #singleBatchLogs li {
     font-size: 12px;
+}
+
+/** SINGLE BATCH REPORT STATES **/
+
+#singleBatchStates ul {
+    background-color: var(--innerContentBoxes-bg-color);
+    margin-top: 10px;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+#singleBatchStates ul li{
+    margin: 3px 0 3px 0;
 }
