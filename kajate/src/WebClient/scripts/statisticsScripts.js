@@ -1,11 +1,11 @@
 $(document).ready(() => {
     let append = () => {
-        $("#productsChartContainer").append("<h3 style=\"text-align: center;\">Total, defect and acceptable products</h3> " + 
-        "<canvas id=\"productsChart\" width=\"400\" height=\"400\"></canvas>");
-        $("#prodProcessedChartContainer").append("<h3 style=\"text-align: center;\">Produced products over time</h3>" + 
-        "<canvas id=\"prodProcessedChart\" width=\"400\" height=\"400\"></canvas>");
-        $("#stateChartContainer").append("<h3 style=\"text-align: center;\">Time spent in different states</h3>" + 
-        "<canvas id=\"stateChart\" width=\"400\" height=\"400\"></canvas>");
+        $("#productsChartContainer").append("<h3 style=\"text-align: center; padding-top: 5px;\">Total, defect and acceptable products</h3> " +
+            "<canvas id=\"productsChart\" width=\"400\" height=\"400\"></canvas>");
+        $("#prodProcessedChartContainer").append("<h3 style=\"text-align: center; padding-top: 5px;\">Produced products over time</h3>" +
+            "<canvas id=\"prodProcessedChart\" width=\"400\" height=\"400\"></canvas>");
+        $("#stateChartContainer").append("<h3 style=\"text-align: center; padding-top: 5px;\">Time spent in different states</h3>" +
+            "<canvas id=\"stateChart\" width=\"400\" height=\"400\"></canvas>");
     }
     append();
 
@@ -35,7 +35,8 @@ $(document).ready(() => {
                 let speedData = json.Speed;
                 let timeData = json.TimeSpent;
                 let errorData = json.Error;
-                // INSERT: let stateData = json.Logs.States;
+                let stateData = json.StateTracker;
+
 
                 //bar chart
                 let defCount = defData[defData.length - 1];
@@ -46,14 +47,16 @@ $(document).ready(() => {
                 var barChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ['Defect Products', 'Acceptable Products'],
+                        labels: [''],
                         datasets: [{
-                            label: 'Amount of beer',
-                            data: data,
-                            backgroundColor: [
-                                "rgba(243, 98, 98, 1)",
-                                "rgba(13, 255, 0, 0.5)"
-                            ],
+                            label: 'Acceptable Products',
+                            data: [accCount],
+                            backgroundColor: "rgba(13, 255, 0, 0.5)",
+                            borderWidth: 0
+                        }, {
+                            label: 'Defect Products',
+                            data: [defCount],
+                            backgroundColor: "rgba(243, 98, 98, 1)",
                             borderWidth: 0
                         }]
                     },
@@ -62,6 +65,10 @@ $(document).ready(() => {
                             yAxes: [{
                                 ticks: {
                                     beginAtZero: true
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Amount'
                                 }
                             }]
                         }
@@ -79,31 +86,50 @@ $(document).ready(() => {
                     data: {
                         labels: time,
                         datasets: [{
-                            label: "Totalt products over time",
+                            label: "Total products",
                             data: prodData,
                             backgroundColor: "rgba(13, 255, 0, 0.5)",
                             lineTension: 0.2
                         }, {
-                            label: "Total defective products over time",
+                            label: "Defective products",
                             data: defData,
                             backgroundColor: "rgba(243, 98, 98, 1)",
                             lineTension: 0.2
                         }]
                     },
                     options: {
-
+                        scales: {
+                            yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Amount'
+                                }
+                            }],
+                            xAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Time'
+                                }
+                            }]
+                        }
                     }
                 });
 
                 //radar chart
+                let states = [];
+                let durations = [];
+                stateData.forEach(o => {
+                    states.push(o.key);
+                    durations.push(o.value.TimeInState);
+                });
                 var stateElem = document.getElementById("stateChart");
                 var stateChart = new Chart(stateElem, {
                     type: 'pie',
                     data: {
-                        labels: ["Deactivated", "Clearing", "Stopped", "Starting", "Idle", "Suspended", "Execute", "Stopping", "Aborting", "Aborted", "Holding", "Held", "Resetting", "Completing", "Complete", "Deactivating", "Activating"],
+                        labels: states,
                         datasets: [{
-                            label: "Time spent in different machine states",
-                            data: [100, 40, 30, 5, 45, 23, 90, 50, 30, 10, 5, 15, 60, 70, 5, 12, 51], //insert "dddata" variable here in the future
+                            label: "Time spent in different machine states (seconds)",
+                            data: durations,
                             backgroundColor: [
                                 'rgba(255, 0, 0, 0.5)',
                                 'rgba(0, 255, 0, 0.5)',
