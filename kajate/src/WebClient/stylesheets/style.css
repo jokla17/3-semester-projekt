@@ -187,7 +187,7 @@ button:disabled, input[type="submit"]:disabled {
 
 /** INPUT FIELDS **/
 .defaultInput {
-    padding: 7px 0px 7px 10px;
+    padding: 9px 0px 9px 10px;
     border-radius: 8px;
 }
 
@@ -263,7 +263,7 @@ input:read-only{
 }
 
 #searchBar button {
-    padding: 7px 15px 7px 15px;
+    padding: 9px 15px 9px 15px;
     border-radius: 0 8px 8px 0;
 }
 
@@ -353,6 +353,10 @@ input:read-only{
 
 /** ALL BATCH REPORTS **/
 
+#batchReports {
+    margin-bottom: 20px;
+}
+
 #batchReports button{
     margin: 0;
 }
@@ -374,5 +378,15 @@ td, th {
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: var(--innerContentBoxes-bg-color);
+}
+
+tr:not(:first-child):hover {
+    cursor: pointer;
+    background-color:  var(--table-row-hover-color);
+}
+
+/** STATISTICS **/
+#stateChartContainer {
+    margin-bottom: 20px;
 }

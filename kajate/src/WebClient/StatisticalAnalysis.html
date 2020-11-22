@@ -36,19 +36,17 @@
             </aside>
             <!--DASHBOARD BOXES-->
             <div class="flexSize2">
-                <div class=" flexWrap flexSpaceEvenly">
-                    <h2 style="text-align: center;">Statistical analysis of productions</h2><br>
-                    <div style="padding-left: 40px;">
-                        <iframe name="dummyframe" id="dummyframe" style="display:none;"></iframe>
-                        <form action="http://localhost:3000/search" method="post" target="dummyframe">
-                            <label for="BatchId">Enter the Batch-ID for the production: </label><br><br>
-                            <input type="number" id="BatchId" name="BatchId" style="padding-right: 20px;">
-                            <input id="btnSubmit" type="submit" value="Submit" class="buttonDefault buttonSuccess">
-                        </form>
-                    </div> <br>
-                    <div id="productsChartContainer" style="border: 2px solid rgba(0, 0, 0, 0.377); border-radius: 5px;"></div>
-                    <div id="prodProcessedChartContainer" style="border: 2px solid rgba(0, 0, 0, 0.377); border-radius: 5px;"></div>
-                    <div id="stateChartContainer" style="border: 2px solid rgba(0, 0, 0, 0.377); border-radius: 5px;"></div>
+                <div class="flexWrap flexSpaceEvenly">
+                    <iframe name="dummyframe" id="dummyframe" style="display:none;"></iframe>
+                    <form class="containerBox" action="http://localhost:3000/search" method="post" target="dummyframe">
+                        <h2 class="flexDirectionRow flexCenterSingleRow">Statistical analysis of productions</h2><br>
+                        <label for="BatchId">Enter the <i>Batch-ID</i> for the production: </label><br><br>
+                        <input class="defaultInput" type="number" id="BatchId" name="BatchId" style="padding-right: 20px;">
+                        <input id="btnSubmit" type="submit" value="Submit" class="buttonDefault buttonSuccess">
+                    </form>
+                    <div class="containerBox" id="productsChartContainer"></div>
+                    <div class="containerBox" id="prodProcessedChartContainer"></div>
+                    <div class="containerBox" id="stateChartContainer"></div>
                 </div>
             </div>
         </div>
@@ -61,7 +59,7 @@
                 <!-- SCRIPT -->
                 <script src="scripts/webserverAvailable.js"></script>
                 <script src="scripts/searchableBatches.js"></script>
-                <script src="scripts/statisticsScripts.js"></script>
+                <script src="scripts/statisticsGraphs.js"></script>
             </div>
     </body>
 </html>

@@ -37,10 +37,13 @@ let nextPage = () => {
           
           try {
               for (let i = currentPage; i < rows_of_page; i++) {
-                $("#batchReportsTable").append("<tr id='batchReportRow" + i + "'></tr>");
+                let url = new URL("http://127.0.0.1:5500/kajate/src/WebClient/SingleBatch.html"); 
+                url.searchParams.append('batch_id', json[i].BatchId); 
+                
+                $("#batchReportsTable").append("<tr onclick=\"window.location.href = '" + url + "';\" id='batchReportRow" + i + "'></tr>");
                 $("#batchReportRow" + i).append("<td>" + json[i].BatchId + "</td>");
                 $("#batchReportRow" + i).append("<td>" + displayProductType(json[i].ProductType) + "</td>");
-                $("#batchReportRow" + i).append("<td>" + json[i].Products + "</td>");
+                $("#batchReportRow" + i).append("<td>" + json[i].Logs.ProdProcessedCount[json[i].Logs.ProdProcessedCount.length - 1] + "</td>");
                 $("#batchReportRow" + i).append("<td>" + json[i].OEE + "%</td>");
               }
           } catch (error) {}
@@ -64,5 +67,4 @@ let nextPage = () => {
     }
     nextPage();
   });
-
 });

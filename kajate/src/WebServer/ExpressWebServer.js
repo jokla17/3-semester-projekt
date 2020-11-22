@@ -2,6 +2,7 @@ let express = require('express');
 let bodyParser = require('body-parser');
 let cors = require('cors');
 let dbmanager = require('./DatabaseManager');
+let pdfConfiguration = require("./PDFManager");
 let app = express();
 
 app.use(bodyParser.urlencoded({ extended: true })); 
@@ -59,6 +60,10 @@ app.post("/search", (request, response) => {
         return;
     }
     dbmanager.selectAllData((callback) => response.send(callback));
+});
+
+app.post("/savepdf", (request, response) => {
+    dbmanager.selectSpecificData(request.body.BatchId, (callback) => pdfConfiguration.saveAsPdf(callback));
 });
 
 // Put request handlers
