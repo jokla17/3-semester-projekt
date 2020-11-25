@@ -13,8 +13,7 @@ $(document).ready(() => {
     }
     append();
 
-    //associate submit-button with a request to the DB
-    $("#btnSubmit").click(() => {
+    let showGraphs = () => {
         $("#productsChartContainer").empty();
         $("#prodProcessedChartContainer").empty();
         $("#stateChartContainer").empty();
@@ -29,7 +28,7 @@ $(document).ready(() => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: '{"BatchId" : ' + document.getElementById("BatchId").value + '}'
+            body: '{"BatchId" : ' + (document.getElementById("BatchId").value == "" ? idUrl : document.getElementById("BatchId").value) + '}'
         })
         .then(response => response.json())
         .then(json => {
@@ -162,5 +161,19 @@ $(document).ready(() => {
                 }
             });
         });
+    }
+
+    // Check if URL has a batch id - it means it has been redirected from a single batch report
+    let urlParams = new URLSearchParams(window.location.search);
+    let idUrl = urlParams.get("batch_id");
+
+    if (idUrl != null) {
+        $("#BatchId").val(idUrl);
+        showGraphs();
+    }
+
+    // Associate submit-button with a request to the DB
+    $("#btnSubmit").click(() => {
+       showGraphs();
     });
 });

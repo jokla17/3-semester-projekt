@@ -48,10 +48,17 @@ let singleBatchContents = () => {
         // Buttons
         $("#singleBatch").append("<button id=\"btnShowStates\" class=\"buttonDefault buttonSuccess\">SHOW STATES</button>");
         $("#singleBatch").append("<button id=\"btnShowLogs\"class=\"buttonDefault buttonSuccess\">Show Logs</button>");
+        $("#singleBatch").append("<button id=\"btnShowStatistics\" class=\"buttonDefault buttonSuccess\">SHOW STATISTICS</button>");
         $("#singleBatch").append("<button id=\"btnSaveAsPDF\" class=\"buttonDefault buttonSuccess\">SAVE AS PDF</button>");
         $("#btnShowLogs").click(() => { $("#singleBatchLogs").toggle("slow"); });
         $("#btnShowStates").click(() => { $("#singleBatchStates").toggle("slow"); });
         $("#btnSaveAsPDF").click(() => { alert("Batchreport(" + id + ") has been saved!"); saveAsPdfRequest(id); });
+
+        let url = new URL("http://127.0.0.1:5500/kajate/src/WebClient/StatisticalAnalysis.html"); 
+        url.searchParams.append('batch_id', id); 
+        $("#btnShowStatistics").click(() => {
+            window.location.href = url;
+        });
 
         // Logs
         $("#singleBatch").append(("<div id=\"singleBatchLogs\"></div>"));
