@@ -2,6 +2,8 @@ $(document).ready(() => {
     
 let currentPage = 0; 
 let rows_of_page = 10; 
+let maxPage = 10;
+let counter = 0;
 
 let nextPage = () => {
       fetch("http://localhost:3000/batches")
@@ -45,6 +47,8 @@ let nextPage = () => {
                 $("#batchReportRow" + i).append("<td>" + displayProductType(json[i].ProductType) + "</td>");
                 $("#batchReportRow" + i).append("<td>" + json[i].Logs.ProdProcessedCount[json[i].Logs.ProdProcessedCount.length - 1] + "</td>");
                 $("#batchReportRow" + i).append("<td>" + json[i].OEE + "%</td>");
+
+                counter++;
               }
           } catch (error) {}
         });
@@ -53,14 +57,19 @@ let nextPage = () => {
   nextPage();
 
   $("#btnNext").click(() => {
-    $("#batchReportsTable").empty();
-    currentPage = currentPage + 10;
-    rows_of_page = rows_of_page + 10;
-    nextPage();
+    console.log(counter);
+    if (counter == maxPage){
+      counter = 0;
+      $("#batchReportsTable").empty();
+      currentPage = currentPage + 10;
+      rows_of_page = rows_of_page + 10;
+      nextPage();
+    }
   });
 
   $("#btnPrevious").click(() => {
     $("#batchReportsTable").empty();
+    counter = 0;
     if (currentPage != 0) {
       currentPage = currentPage - 10;
       rows_of_page = rows_of_page - 10;
