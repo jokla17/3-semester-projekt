@@ -9,7 +9,6 @@ import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.HashMap;
 import java.util.Map;
-
 import com.google.gson.Gson;
 
 public class WebRequestHandler {

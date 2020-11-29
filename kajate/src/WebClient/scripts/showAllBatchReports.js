@@ -46,7 +46,7 @@ let nextPage = () => {
                 $("#batchReportRow" + i).append("<td>" + json[i].BatchId + "</td>");
                 $("#batchReportRow" + i).append("<td>" + displayProductType(json[i].ProductType) + "</td>");
                 $("#batchReportRow" + i).append("<td>" + json[i].Logs.ProdProcessedCount[json[i].Logs.ProdProcessedCount.length - 1] + "</td>");
-                $("#batchReportRow" + i).append("<td>" + json[i].OEE + "%</td>");
+                $("#batchReportRow" + i).append("<td>" + json[i].OEE.toFixed(0) + "%</td>");
 
                 counter++;
               }

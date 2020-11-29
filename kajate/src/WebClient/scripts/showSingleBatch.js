@@ -42,13 +42,13 @@ let singleBatchContents = () => {
         $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Defective products:</p><p><i>" + prodDefectiveCount + "</i></p></div>");
         $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Speed (Products pr. minute):</p><p><i>" + json.Speed + "</i></p></div>");
         $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Amount of time used:</p><p><i>" + json.TimeSpent / 1000 + " sec</i></p></div>");
-        $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Overall Equipment Effectiveness (OEE):</p><p><i>" + json.OEE + " %</i></p></div>");
+        $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Overall Equipment Effectiveness (OEE):</p><p><i>" + json.OEE.toFixed(0) + " %</i></p></div>");
         $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Error (Dif. between set amount and acceptable products):</p><p><i>" + json.Error + "</i></p></div>");
 
         // Buttons
         $("#singleBatch").append("<button id=\"btnShowStates\" class=\"buttonDefault buttonSuccess\">SHOW STATES</button>");
         $("#singleBatch").append("<button id=\"btnShowLogs\"class=\"buttonDefault buttonSuccess\">Show Logs</button>");
-        $("#singleBatch").append("<button id=\"btnShowStatistics\" class=\"buttonDefault buttonSuccess\">SHOW STATISTICS</button>");
+        $("#singleBatch").append("<button id=\"btnShowStatistics\" class=\"buttonDefault buttonSuccess\">SHOW STATS</button>");
         $("#singleBatch").append("<button id=\"btnSaveAsPDF\" class=\"buttonDefault buttonSuccess\">SAVE AS PDF</button>");
         $("#btnShowLogs").click(() => { $("#singleBatchLogs").toggle("slow"); });
         $("#btnShowStates").click(() => { $("#singleBatchStates").toggle("slow"); });

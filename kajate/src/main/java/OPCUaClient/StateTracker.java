@@ -2,7 +2,6 @@ package OPCUaClient;
 
 import java.time.Duration;
 import java.time.LocalTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
