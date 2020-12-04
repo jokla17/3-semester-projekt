@@ -227,11 +227,36 @@ input:read-only{
     margin: 0;
 }
 
-/** REALTIME VISUALIZATION **/
-#realtimeVisualization {
+/** RESOURCES **/
+#resources #resourceMeter {
+    background-color: var(--successButton-bg-color);
+    width: 100%;
+    border-radius: 8px;
+    padding: 4px 0 4px 0;
+}
+
+#resources #resourceMeter h3 {
+    color : var(--main-bg-color);
+}
+
+/** MAINTENANCE **/
+#maintenance {
     margin-bottom: 20px;
 }
 
+#maintenanceMeter {
+    background-color: var(--warningButton-bg-color);
+    width: 100%;
+    border-radius: 8px;
+    padding: 15px 0 15px 0;
+}
+
+#maintenanceMeter h3 {
+    color : var(--main-bg-color);
+}
+
+
+/** REALTIME VISUALIZATION **/
 #rtvBox {
     width: 170px;
     margin: 0px 0 20px 0;

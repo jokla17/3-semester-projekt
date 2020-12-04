@@ -1,5 +1,4 @@
 $(document).ready(() => {
-    
 let currentPage = 0; 
 let rows_of_page = 10; 
 let maxPage = 10;
@@ -39,7 +38,7 @@ let nextPage = () => {
           
           try {
               for (let i = currentPage; i < rows_of_page; i++) {
-                let url = new URL("http://127.0.0.1:5500/kajate/src/WebClient/SingleBatch.html"); 
+                let url = new URL("http://localhost:3000/SingleBatch.html"); 
                 url.searchParams.append('batch_id', json[i].BatchId); 
                 
                 $("#batchReportsTable").append("<tr onclick=\"window.location.href = '" + url + "';\" id='batchReportRow" + i + "'></tr>");
@@ -66,7 +65,7 @@ let nextPage = () => {
       nextPage();
     }
   });
-
+  
   $("#btnPrevious").click(() => {
     $("#batchReportsTable").empty();
     counter = 0;

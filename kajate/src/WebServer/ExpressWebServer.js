@@ -8,10 +8,15 @@ let app = express();
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(express.json()); 
 app.use(cors());
+app.use(express.static('../WebClient/'));
 
 // Save temporary data
 let formData = {} 
 let opcuaData = {}
+
+app.get("/", (request, response) => {
+    response.send("")
+});
 
 // Get request handlers
 app.get("/stop_production", (request, response) => {

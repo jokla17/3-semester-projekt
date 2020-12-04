@@ -63,4 +63,14 @@ interface tags {
         put("Abort", 4);
         put("Clear", 5);
     }};
+
+    Map<String, String> inventoryTags = new HashMap <String, String>() {{
+        put("Barley", "::Program:Inventory.Barley");
+        put("Hops", "::Program:Inventory.Hops");
+        put("Malt", "::Program:Inventory.Malt");
+        put("Wheat", "::Program:Inventory.Wheat");
+        put("Yeast", "::Program:Inventory.Yeast");
+    }};
+
+    String maintenanceTag = "::Program:Maintenance.Counter";
 }

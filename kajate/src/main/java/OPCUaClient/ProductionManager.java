@@ -131,7 +131,7 @@ public class ProductionManager implements tags{
             }
         }
         
-        timeSpent = ((readEndPoint(statusTags.get("Products"))/speed.get("tfMachineSpeed").getAsFloat())*60000)+6000;
+        timeSpent = ((readEndPoint(statusTags.get("Products"))/speed.get("tfMachineSpeed").getAsFloat())*60000) + 6000;
         Thread.sleep((long)timeSpent);
 
         subscription.deleteMonitoredItems(items);
@@ -154,10 +154,21 @@ public class ProductionManager implements tags{
         getInstance().dataset.put("OEE", getInstance().OEECalculation());
         getInstance().dataset.put("Error", getInstance().errorCalulation());
         getInstance().dataset.put("DateTime", getInstance().currentDate());
+        getInstance().dataset.put("Maintenance", getInstance().readEndPoint(tags.maintenanceTag));
 
+        // Inventory: resoruces
+        Map<String, Object> resources = new HashMap<>();
+        resources.put("Barley", getInstance().readEndPoint(tags.inventoryTags.get("Barley"))); 
+        resources.put("Hops", getInstance().readEndPoint(tags.inventoryTags.get("Hops"))); 
+        resources.put("Malt", getInstance().readEndPoint(tags.inventoryTags.get("Malt"))); 
+        resources.put("Wheat", getInstance().readEndPoint(tags.inventoryTags.get("Wheat"))); 
+        resources.put("Yeast", getInstance().readEndPoint(tags.inventoryTags.get("Yeast"))); 
+        getInstance().dataset.put("Inventory", resources);
+
+        // States
         List<Object> list = new ArrayList<Object>(getInstance().stateTracker.trackStates((int) getInstance().readEndPoint(tags.statusTags.get("State"))).entrySet());
         getInstance().dataset.put("StateTracker", list);
-        ;
+
         // Logging values in map
         String identifier = tags.nodeIdMap.get(item.getReadValueId().getNodeId().getIdentifier().toString());
         getInstance().logs.get(identifier).add(value.getValue().getValue());
@@ -180,6 +191,8 @@ public class ProductionManager implements tags{
         System.out.println("Logs: " + getInstance().dataset.get("Logs"));
         System.out.println("StateTracker" + getInstance().dataset.get("StateTracker"));
         System.out.println("DateTime" + getInstance().dataset.get("DateTime"));
+        System.out.println("Inventory" + getInstance().dataset.get("Inventory"));
+        System.out.println("Maintenance" + getInstance().dataset.get("Maintenance"));
 
         // Send put request
         WebRequestHandler.getInstance().putRequest(getInstance().dataset);

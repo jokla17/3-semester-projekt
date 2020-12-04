@@ -41,7 +41,7 @@ let singleBatchContents = () => {
         $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Acceptable products:</p><p><i>" + (prodProcessedCount - prodDefectiveCount) + "</i></p></div>");
         $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Defective products:</p><p><i>" + prodDefectiveCount + "</i></p></div>");
         $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Speed (Products pr. minute):</p><p><i>" + json.Speed + "</i></p></div>");
-        $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Amount of time used:</p><p><i>" + json.TimeSpent / 1000 + " sec</i></p></div>");
+        $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Amount of time used:</p><p><i>" + (json.TimeSpent / 1000).toFixed(0) + " sec</i></p></div>");
         $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Overall Equipment Effectiveness (OEE):</p><p><i>" + json.OEE.toFixed(0) + " %</i></p></div>");
         $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Error (Dif. between set amount and acceptable products):</p><p><i>" + json.Error + "</i></p></div>");
 
@@ -54,7 +54,7 @@ let singleBatchContents = () => {
         $("#btnShowStates").click(() => { $("#singleBatchStates").toggle("slow"); });
         $("#btnSaveAsPDF").click(() => { alert("Batchreport(" + id + ") has been saved!"); saveAsPdfRequest(id); });
 
-        let url = new URL("http://127.0.0.1:5500/kajate/src/WebClient/StatisticalAnalysis.html"); 
+        let url = new URL("http://localhost:3000/StatisticalAnalysis.html"); 
         url.searchParams.append('batch_id', id); 
         $("#btnShowStatistics").click(() => {
             window.location.href = url;

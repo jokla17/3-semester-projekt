@@ -29,6 +29,18 @@ function poll() {
                 document.getElementById("pDefectProducts").innerText = json.Logs.ProdDefectiveCount[json.Logs.ProdDefectiveCount.length - 1];
                 document.getElementById("pAcceptableProducts").innerText = json.Logs.ProdProcessedCount[json.Logs.ProdProcessedCount.length - 1]
                     - json.Logs.ProdDefectiveCount[json.Logs.ProdDefectiveCount.length - 1]
+                 
+                // Maintenance
+                let maxMaintenance = 65535;
+                document.getElementById("maintenancePercentage").innerText = ((json.Maintenance / maxMaintenance * 100) - 41).toFixed(0) + "%";
+
+                // Inventory: resources
+                let maxResources = 35000;
+                document.getElementById("resourceBarley").innerText = (json.Inventory.Barley / maxResources * 100).toFixed(0) + "%";
+                document.getElementById("resourceYeast").innerText = (json.Inventory.Yeast / maxResources * 100).toFixed(0) + "%";
+                document.getElementById("resourceHops").innerText = (json.Inventory.Hops / maxResources * 100).toFixed(0) + "%";
+                document.getElementById("resourceMalt").innerText = (json.Inventory.Malt / maxResources * 100).toFixed(0) + "%";
+                document.getElementById("resourceWheat").innerText = (json.Inventory.Wheat / maxResources * 100).toFixed(0) + "%";
 
                 // If produced equals amount, update id in input
                 if (json.Logs.ProdProcessedCount[json.Logs.ProdProcessedCount.length - 1] == json.Products) {
