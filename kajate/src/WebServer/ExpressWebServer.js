@@ -14,10 +14,6 @@ app.use(express.static('../WebClient/'));
 let formData = {} 
 let opcuaData = {}
 
-app.get("/", (request, response) => {
-    response.send("")
-});
-
 // Get request handlers
 app.get("/stop_production", (request, response) => {
     runJar("StopProduction");
