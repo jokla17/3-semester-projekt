@@ -131,10 +131,12 @@ public class ProductionManager implements tags{
             }
         }
 
+        // Sleep
+        timeSpent = (((readEndPoint(statusTags.get("Products"))/speed.get("tfMachineSpeed").getAsFloat())*60000));
         while (true && getInstance().readEndPoint("::Program:Cube.Status.StateCurrent") != 17) {
-            timeSpent += ((60/speed.get("tfMachineSpeed").getAsFloat()) * 60000) + 1000;
-            Thread.sleep((long) timeSpent);
+            Thread.sleep((long) (60 / getInstance().readEndPoint(statusTags.get("Speed"))) * 60000);
         }
+        Thread.sleep(2000);
 
         subscription.deleteMonitoredItems(items);
         } catch (Exception ex) {
@@ -196,7 +198,7 @@ public class ProductionManager implements tags{
     // Error
     private double errorCalulation() {
         float goodCount = getInstance().readEndPoint(statusTags.get("Products")) - getInstance().readEndPoint(tags.adminTags.get("ProdDefectiveCount"));
-        float errorCalc = (getInstance().readEndPoint(statusTags.get("Products"))-goodCount);
+        float errorCalc = (getInstance().readEndPoint(statusTags.get("Products")) - goodCount);
         return errorCalc;
     }
 

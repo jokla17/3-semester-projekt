@@ -26,7 +26,14 @@ exports.saveAsPdf = (callback) => {
   "\n\nSpeed (Products pr. minute): " + callback.Speed +
   "\n\nAmount of time used: " + (callback.TimeSpent / 1000).toFixed(0) + " sec" +
   "\n\nOverall Equipment Effectiveness: " + callback.OEE.toFixed(0) + "%" +
-  "\n\nError: " + callback.Error, 15, 50);
-  
+  "\n\nError: " + callback.Error + 
+  "\n\nResources used: " + 
+  "\n\nBarley: " + (35000 - callback.Inventory.Barley) + "g" +
+  "\n\nYeast: " + (35000 - callback.Inventory.Yeast)  + "g" +
+  "\n\nHops: " + (35000 - callback.Inventory.Hops)  + "g" +
+  "\n\nMalt: " + (35000 - callback.Inventory.Malt)  + "g" +
+  "\n\nWheat: " + (35000 - callback.Inventory.Wheat) + "g" 
+  , 15, 50);
+
   doc.save("../../../batchreport" + callback.BatchId + ".pdf");
 }

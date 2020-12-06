@@ -41,9 +41,15 @@ let singleBatchContents = () => {
     $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Acceptable products:</p><p><i>" + (prodProcessedCount - prodDefectiveCount) + "</i></p></div>");
     $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Defective products:</p><p><i>" + prodDefectiveCount + "</i></p></div>");
     $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Speed (Products pr. minute):</p><p><i>" + json.Speed + "</i></p></div>");
-    $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Amount of time used:</p><p><i>" + (json.TimeSpent / 1000).toFixed(0) + " sec</i></p></div>");
+    $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Approximate amount of time used:</p><p><i>" + (json.TimeSpent / 1000).toFixed(0) + " sec</i></p></div>");
     $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Overall Equipment Effectiveness (OEE):</p><p><i>" + json.OEE.toFixed(0) + " %</i></p></div>");
     $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Error (Dif. between set amount and acceptable products):</p><p><i>" + json.Error + "</i></p></div>");
+    $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>Resources used:</p></div>");
+    $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>&emsp; Barley:</p><p><i>" + (35000 - json.Inventory.Barley) + "g</i></p></div>");
+    $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>&emsp; Yeast:</p><p><i>" + (35000 - json.Inventory.Yeast) + "g</i></p></div>");
+    $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>&emsp; Hops:</p><p><i>" + (35000 - json.Inventory.Hops) + "g</i></p></div>");
+    $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>&emsp; Malt:</p><p><i>" + (35000 - json.Inventory.Malt) + "g</i></p></div>");
+    $("#singleBatchHeader").append("<div class=\"flexDirectionRow flexSpaceBetween\"><p>&emsp; Wheat:</p><p><i>" + (35000 - json.Inventory.Wheat) + "g</i></p></div>");
 
     // Buttons
     $("#singleBatch").append("<button id=\"btnShowStates\" class=\"buttonDefault buttonSuccess\">SHOW STATES</button>");
