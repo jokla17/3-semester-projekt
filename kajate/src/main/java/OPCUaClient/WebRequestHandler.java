@@ -73,8 +73,4 @@ public class WebRequestHandler {
             ex.printStackTrace();
         }
     }
-
-    public static void main (String[]args) {
-        System.out.println(getInstance().getRequest());
-    }
 }

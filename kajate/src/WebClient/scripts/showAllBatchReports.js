@@ -5,53 +5,53 @@ let maxPage = 10;
 let counter = 0;
 
 let nextPage = () => {
-      fetch("http://localhost:3000/batches")
-        .then(response => response.json())
-        .then(json => {
+    fetch("http://localhost:3000/batches")
+      .then(response => response.json())
+      .then(json => {
 
-          let displayProductType = (productType) => {
-            let pt = "";
-              switch (productType) {
-                case 0:
-                  pt = "Pilsner";
-                  break;
-                case 1:
-                  pt = "Wheat";
-                  break;
-                case 2:
-                  pt = "IPA";
-                  break;
-                case 3:
-                  pt = "Stout";
-                  break;
-                case 4:
-                  pt = "Ale";
-                  break;
-                case 5:
-                  pt = "Alcohol-free";
-                  break;
-              }
-            return pt;
-          }
+        let displayProductType = (productType) => {
+          let pt = "";
+            switch (productType) {
+              case 0:
+                pt = "Pilsner";
+                break;
+              case 1:
+                pt = "Wheat";
+                break;
+              case 2:
+                pt = "IPA";
+                break;
+              case 3:
+                pt = "Stout";
+                break;
+              case 4:
+                pt = "Ale";
+                break;
+              case 5:
+                pt = "Alcohol-free";
+                break;
+            }
+          return pt;
+        }
 
-          $("#batchReportsTable").append("<tr><th>Batch ID</th><th>Beer Type</th><th>Amount Produced</th><th>Overall Equipment Effectiveness</th></tr>");
-          
-          try {
-              for (let i = currentPage; i < rows_of_page; i++) {
-                let url = new URL("http://localhost:3000/SingleBatch.html"); 
-                url.searchParams.append('batch_id', json[i].BatchId); 
-                
-                $("#batchReportsTable").append("<tr onclick=\"window.location.href = '" + url + "';\" id='batchReportRow" + i + "'></tr>");
-                $("#batchReportRow" + i).append("<td>" + json[i].BatchId + "</td>");
-                $("#batchReportRow" + i).append("<td>" + displayProductType(json[i].ProductType) + "</td>");
-                $("#batchReportRow" + i).append("<td>" + json[i].Logs.ProdProcessedCount[json[i].Logs.ProdProcessedCount.length - 1] + "</td>");
-                $("#batchReportRow" + i).append("<td>" + json[i].OEE.toFixed(0) + "%</td>");
+        $("#batchReportsTable").append("<tr><th>Batch ID</th><th>Beer Type</th><th>Amount Produced</th><th>Overall Equipment Effectiveness</th></tr>");
+        
+        try {
+            for (let i = currentPage; i < rows_of_page; i++) {
+              let url = new URL("http://localhost:3000/SingleBatch.html"); 
+              url.searchParams.append('batch_id', json[i].BatchId); 
+              
+              $("#batchReportsTable").append("<tr onclick=\"window.location.href = '" + url + "';\" id='batchReportRow" + i + "'></tr>");
+              $("#batchReportRow" + i).append("<td>" + json[i].BatchId + "</td>");
+              $("#batchReportRow" + i).append("<td>" + displayProductType(json[i].ProductType) + "</td>");
+              $("#batchReportRow" + i).append("<td>" + json[i].Logs.ProdProcessedCount[json[i].Logs.ProdProcessedCount.length - 1] + "</td>");
+              $("#batchReportRow" + i).append("<td>" + json[i].OEE.toFixed(0) + "%</td>");
 
-                counter++;
-              }
-          } catch (error) {}
-        });
-    }
+              counter++;
+            }
+        } catch (error) {}
+      });
+  }
 
   nextPage();
 

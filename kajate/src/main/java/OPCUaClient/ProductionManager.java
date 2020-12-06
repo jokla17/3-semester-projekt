@@ -130,9 +130,11 @@ public class ProductionManager implements tags{
                 System.out.println("Failed to create item for nodeId=" + item.getReadValueId().getNodeId() + " (status=" + item.getStatusCode() + ")");
             }
         }
-        
-        timeSpent = ((readEndPoint(statusTags.get("Products"))/speed.get("tfMachineSpeed").getAsFloat())*60000) + 6000;
-        Thread.sleep((long)timeSpent);
+
+        while (true && getInstance().readEndPoint("::Program:Cube.Status.StateCurrent") != 17) {
+            timeSpent += ((60/speed.get("tfMachineSpeed").getAsFloat()) * 60000) + 1000;
+            Thread.sleep((long) timeSpent);
+        }
 
         subscription.deleteMonitoredItems(items);
         } catch (Exception ex) {
@@ -177,23 +179,7 @@ public class ProductionManager implements tags{
         getInstance().logs.get("Vibration").add(getInstance().readEndPoint(tags.statusTags.get("Vibration")));
         getInstance().logs.get("ProdDefectiveCount").add(getInstance().readEndPoint(tags.adminTags.get("ProdDefectiveCount")));
         getInstance().dataset.put("Logs", getInstance().logs);
-
-        // Print into java console
-        System.out.println("Subscription value received: item=" + item.getReadValueId().getNodeId() + ", value=" + value.getValue());
-        System.out.println("ProductType: " + getInstance().dataset.get("ProductType"));
-        System.out.println("CurSpeed: " + getInstance().dataset.get("CurSpeed"));
-        System.out.println("Speed: " + getInstance().dataset.get("Speed"));
-        System.out.println("BatchId: " + getInstance().dataset.get("BatchId"));
-        System.out.println("Products: " + getInstance().dataset.get("Products"));
-        System.out.println("TimeSpent: " + getInstance().dataset.get("TimeSpent"));
-        System.out.println("OEE: " + getInstance().dataset.get("OEE"));
-        System.out.println("Error: " + getInstance().dataset.get("Error"));
-        System.out.println("Logs: " + getInstance().dataset.get("Logs"));
-        System.out.println("StateTracker" + getInstance().dataset.get("StateTracker"));
-        System.out.println("DateTime" + getInstance().dataset.get("DateTime"));
-        System.out.println("Inventory" + getInstance().dataset.get("Inventory"));
-        System.out.println("Maintenance" + getInstance().dataset.get("Maintenance"));
-
+        
         // Send put request
         WebRequestHandler.getInstance().putRequest(getInstance().dataset);
     }

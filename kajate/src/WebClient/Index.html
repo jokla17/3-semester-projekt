@@ -41,8 +41,8 @@
                         <h2 class="flexDirectionRow flexCenterSingleRow">Create Batch</h2>
                         <label>Batch ID</label>
                         <div class="flexDirectionRow flexLeft">
-                            <input class="defaultInput" name="tfBatchId" type="text" id="tfBatchId" readonly="readonly">
-                            <input type="radio" id="autoBatchId" value="auto" checked="checked">
+                            <input class="defaultInput" name="tfBatchId" type="number" id="tfBatchId" readonly="readonly">
+                            <input type="checkbox" id="autoBatchId" value="auto" checked="checked">
                             <label id="lbAutoBatchId">Auto</label>
                         </div>
                         <label>Product Type</label>
@@ -55,11 +55,11 @@
                             <option value="5">Alcohol-free</option>
                         </select>
                         <label>Amount</label>
-                        <input class="defaultInput" name="tfProductAmount" type="text" id="tfProductAmount">                                    
+                        <input class="defaultInput" name="tfProductAmount" type="number" id="tfProductAmount">                                    
                         <label>Machine Speed</label>
                         <div class="flexDirectionRow flexLeft">
-                            <input  class="defaultInput" name="tfMachineSpeed" type="text" id="tfMachineSpeed" readonly="readonly">    
-                            <input type="radio" id="autoMachineSpeed" value="auto" checked="checked">
+                            <input  class="defaultInput" name="tfMachineSpeed" type="number" id="tfMachineSpeed" readonly="readonly">    
+                            <input type="checkbox" id="autoMachineSpeed" value="auto" checked="checked">
                             <label id="lbAutoMachineSpeed">Auto</label>
                         </div>        
                         <span class="flexDirectionRow flexCenterSingleRow"><input class="buttonDefault buttonSuccess" type="submit" id="btnStart" value="Start" disabled="disabled"></span>
@@ -77,26 +77,26 @@
                     <!--RESOURCES-->
                     <div class="containerBox flexDirectionColumn flexSize1" id="resources">
                         <h2 class="flexDirectionRow flexCenterSingleRow">Resources</h2>
-                        <div class="flexSize1 flexDirectionColumn flexSpaceEvenly flexCenterSingleRow">
-                            <div id="resourceMeter" class="flexDirectionColumn flexCenterSingleRow ">
-                                <p><i>Barley</i></p>
-                                <h3 id="resourceBarley">100%</h3>
+                        <div class="flexSize1 flexDirectionColumn flexCenterSingleRow">
+                            <div class="resource flexDirectionRow flexLeft">
+                                <h3>Barley <span id="resourceBarley">100%</span></h3>
+                                <span class="resourceMeter" id="resourceBarleyMeter"></span>
                             </div>
-                            <div id="resourceMeter" class="flexDirectionColumn flexCenterSingleRow">
-                                <p><i>Hops</i></p>
-                                <h3 id="resourceHops">100%</h3>
+                            <div class="resource flexDirectionRow flexLeft">
+                                <h3>Yeast <span id="resourceYeast">100%</span></h3>
+                                <span class="resourceMeter" id="resourceYeastMeter"></span>
                             </div>
-                            <div id="resourceMeter" class="flexDirectionColumn flexCenterSingleRow">
-                                <p><i>Malt</i></p>
-                                <h3 id="resourceMalt">100%</h3>
+                            <div class="resource flexDirectionRow flexLeft">
+                                <h3>Hops <span id="resourceHops">100%</span></h3>
+                                <span class="resourceMeter" id="resourceHopsMeter"></span>
                             </div>
-                            <div id="resourceMeter" class="flexDirectionColumn flexCenterSingleRow">
-                                <p><i>Wheat</i></p>
-                                <h3 id="resourceWheat">100%</h3>
+                            <div class="resource flexDirectionRow flexLeft">
+                                <h3>Malt <span id="resourceMalt">100%</span></h3>
+                                <span class="resourceMeter" id="resourceMaltMeter"></span>
                             </div>
-                            <div id="resourceMeter" class="flexDirectionColumn flexCenterSingleRow">
-                                <p><i>Yeast</i></p>
-                                <h3 id="resourceYeast">100%</h3>
+                            <div class="resource flexDirectionRow flexLeft">
+                                <h3>Wheat <span id="resourceWheat">100%</span></h3>
+                                <span class="resourceMeter" id="resourceWheatMeter"></span>
                             </div>
                         </div>
                     </div>
@@ -172,8 +172,9 @@
                     <!--MAINTENANCE-->
                     <div class="containerBox flexSize1" id="maintenance">
                         <h2 class="flexDirectionRow flexCenterSingleRow">Maintenance</h2>
-                        <div id="maintenanceMeter" class="flexDirectionColumn flexCenterSingleRow">
+                        <div id="maintenanceBar" class="flexDirectionRow flexLeft">
                             <h3 id="maintenancePercentage">0%</h3>
+                            <span id="maintenanceMeter"></span>
                         </div>
                     </div>
                 </div>

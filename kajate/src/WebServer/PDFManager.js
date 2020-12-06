@@ -24,10 +24,9 @@ exports.saveAsPdf = (callback) => {
   "\n\nAcceptable products: " + (prodProcessedCount - prodDefectiveCount) +
   "\n\nDefective products: " + prodDefectiveCount + 
   "\n\nSpeed (Products pr. minute): " + callback.Speed +
-  "\n\nAmount of time used: " + callback.TimeSpent / 1000 + " sec" +
-  "\n\nOverall Equipment Effectiveness: " + callback.OEE + "%" +
+  "\n\nAmount of time used: " + (callback.TimeSpent / 1000).toFixed(0) + " sec" +
+  "\n\nOverall Equipment Effectiveness: " + callback.OEE.toFixed(0) + "%" +
   "\n\nError: " + callback.Error, 15, 50);
-  
   
   doc.save("../../../batchreport" + callback.BatchId + ".pdf");
 }
