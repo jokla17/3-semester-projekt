@@ -174,6 +174,16 @@ $(document).ready(() => {
 
     // Associate submit-button with a request to the DB
     $("#btnSubmit").click(() => {
-       showGraphs();
+        if (document.getElementById("BatchId").value < 0) {
+            alert("Input has a negative value! Please try agian...");
+            return;
+        } else if (typeof document.getElementById("BatchId").value != Number) {
+            alert("Input is not a number! Please try agian...");
+            return;
+        } else if (document.getElementById("BatchId").value = "") {
+            alert("Input does not have a value! Please try agian...");
+            return;
+        }
+        showGraphs();
     });
 });

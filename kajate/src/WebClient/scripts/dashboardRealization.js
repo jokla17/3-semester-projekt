@@ -31,6 +31,18 @@ document.getElementById("autoMachineSpeed").addEventListener("click", () => {
 });
 
 document.getElementById("btnStart").addEventListener("click", () => {
+    let batchId = document.getElementById("tfBatchId").value;
+    let tfProductAmount = document.getElementById("tfProductAmount").value;
+    let machineSpeed = document.getElementById("tfMachineSpeed").value;
+
+    if (batchId == "" || tfProductAmount == "" || machineSpeed == "") {
+        alert("Some of the inputs has no values! Please try agian...");
+        return;
+    } else if (batchId < 0 || tfProductAmount < 0 || machineSpeed < 0 ) {
+        alert("Some of the inputs has negative values! Please try agian...");
+        return;
+    }
+
     fetch("http://localhost:3000/form_data", {
         method: "POST",
         headers: {
