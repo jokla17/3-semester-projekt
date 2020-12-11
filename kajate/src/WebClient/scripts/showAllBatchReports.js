@@ -10,6 +10,29 @@ let nextPage = () => {
     fetch("http://localhost:3000/batches")
       .then(response => response.json())
       .then(json => {
+        let isFirstPage = true;
+        let isLastPage = false;
+        if (rows_of_page > json.length){
+          isLastPage = true;
+        } else {
+          isLastPage = false;
+        }
+        if (currentPage == 0){
+          isFirstPage = true;
+        } else {
+          isFirstPage = false;
+        }
+
+        if(isLastPage){
+          $("#btnNext").prop('disabled', true);
+        } else {
+          $("#btnNext").prop('disabled', false);
+        }
+        if(isFirstPage){
+          $("#btnPrevious").prop('disabled', true);
+        } else {
+          $("#btnPrevious").prop('disabled', false);
+        }
 
         let displayProductType = (productType) => {
           let pt = "";
@@ -48,28 +71,6 @@ let nextPage = () => {
               $("#batchReportRow" + i).append("<td>" + displayProductType(json[i].ProductType) + "</td>");
               $("#batchReportRow" + i).append("<td>" + json[i].Logs.ProdProcessedCount[json[i].Logs.ProdProcessedCount.length - 1] + "</td>");
               $("#batchReportRow" + i).append("<td>" + json[i].OEE.toFixed(0) + "%</td>");
-
-              if (rows_of_page >= json.length){
-                isLastPage = true;
-              } else {
-                isLastPage = false;
-              }
-              if (currentPage == 0){
-                isFirstPage = true;
-              } else {
-                isFirstPage = false;
-              }
-
-              if(isLastPage){
-                $("#btnNext").prop('disabled', true);
-              } else {
-                $("#btnNext").prop('disabled', false);
-              }
-              if(isFirstPage){
-                $("#btnPrevious").prop('disabled', true);
-              } else {
-                $("#btnPrevious").prop('disabled', false);
-              }
               
               counter++;
             }
