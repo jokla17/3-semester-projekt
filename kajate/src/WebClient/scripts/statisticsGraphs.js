@@ -174,14 +174,8 @@ $(document).ready(() => {
 
     // Associate submit-button with a request to the DB
     $("#btnSubmit").click(() => {
-        if (document.getElementById("BatchId").value <= 0) {
-            alert("Input has a negative or 0 value! Please try agian...");
-            return;
-        } else if (typeof document.getElementById("BatchId").value != Number) {
-            alert("Input is not a number! Please try agian...");
-            return;
-        } else if (document.getElementById("BatchId").value = "") {
-            alert("Input does not have a value! Please try agian...");
+        if (document.getElementById("BatchId").value <= 0 || document.getElementById("BatchId").value == null) {
+            alert("Input has a negative or null value! Please try agian...");
             return;
         }
         showGraphs();

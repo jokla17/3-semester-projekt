@@ -52,7 +52,6 @@ let nextPage = () => {
         } catch (error) {}
       });
   }
-
   nextPage();
 
   $("#btnNext").click(() => {
