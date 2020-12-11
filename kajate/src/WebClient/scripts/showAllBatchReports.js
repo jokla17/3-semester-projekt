@@ -49,7 +49,7 @@ let nextPage = () => {
               $("#batchReportRow" + i).append("<td>" + json[i].Logs.ProdProcessedCount[json[i].Logs.ProdProcessedCount.length - 1] + "</td>");
               $("#batchReportRow" + i).append("<td>" + json[i].OEE.toFixed(0) + "%</td>");
 
-              if (rows_of_page > json.length){
+              if (rows_of_page >= json.length){
                 isLastPage = true;
               } else {
                 isLastPage = false;
