@@ -35,7 +35,6 @@ $(document).ready(() => {
     }
 
     checkConnectivity();
-    setInterval(() => checkConnectivity(), 30000);
 
     $("#btnServerConnectivity").click(() => {
         $("#btnServerConnectivity").attr("disabled", true);
