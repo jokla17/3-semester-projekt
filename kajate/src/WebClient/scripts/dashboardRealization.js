@@ -38,8 +38,8 @@ document.getElementById("btnStart").addEventListener("click", () => {
     if (batchId == "" || tfProductAmount == "" || machineSpeed == "") {
         alert("Some of the inputs has no values! Please try agian...");
         return;
-    } else if (batchId < 0 || tfProductAmount < 0 || machineSpeed < 0 ) {
-        alert("Some of the inputs has negative values! Please try agian...");
+    } else if (batchId <= 0 || tfProductAmount <= 0 || machineSpeed <= 0 ) {
+        alert("Some of the inputs has negative or 0 values! Please try agian...");
         return;
     }
 
