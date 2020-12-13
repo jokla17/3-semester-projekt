@@ -30,7 +30,9 @@ document.getElementById("autoMachineSpeed").addEventListener("click", () => {
     }
 });
 
-document.getElementById("btnStart").addEventListener("click", () => {
+document.getElementById("btnStart").addEventListener("click", (e) => {
+    e.preventDefault();
+
     let batchId = document.getElementById("tfBatchId").value;
     let tfProductAmount = document.getElementById("tfProductAmount").value;
     let machineSpeed = document.getElementById("tfMachineSpeed").value;
@@ -53,8 +55,7 @@ document.getElementById("btnStart").addEventListener("click", () => {
         ',"slProductType" : ' + document.getElementById("slProductType").value +
         ',"tfProductAmount" : ' + document.getElementById("tfProductAmount").value +
         ',"tfMachineSpeed" : ' + document.getElementById("tfMachineSpeed").value + '}'
-    });
-    poll();
+    }).catch(err => console.log(err));
 });
 
 let poll = () => {
@@ -99,9 +100,10 @@ let poll = () => {
                     document.getElementById("tfBatchId").value = json[json.length - 1].BatchId + 1;
                 });
             }
-        }
-    })
-    .then(() => setTimeout(poll(), 500))
-    .catch(err => console.log(err));
+        } 
+    }).catch(err => console.log(err));
 }
-poll();
+
+setInterval(() => {
+    poll();
+}, 1000);  
