@@ -2,7 +2,7 @@ let MongoClient = require('mongodb').MongoClient;
 let url = "mongodb://localhost:27017/kajatedb";
 
 // Create database and collection
-exports.initalizeDatabase = () => {
+let initalizeDatabase = () => {
   MongoClient.connect(url, {useUnifiedTopology: true}, function(err, db) {
       if (err) throw err;
       console.log("Database created!");
@@ -15,6 +15,7 @@ exports.initalizeDatabase = () => {
       db.close()
   });
 }
+initalizeDatabase();
 
 // Insert or update data
 exports.updateData = (jsonObject) => {
